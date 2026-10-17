@@ -10,9 +10,12 @@ const GA4_ID = 'G-0XZVNWJWZQ';
 const HTML_FILES = [
   'index.html',
   'rent-agreement.html',
+  'commercial-rent.html',
   'police-gd.html',
   'money-loan.html',
   'leave-application.html',
+  'vehicle-sale.html',
+  'bayna-agreement.html',
   'about.html',
   'privacy-policy.html',
   'terms.html',
@@ -102,7 +105,7 @@ HTML_FILES.forEach(file => {
 
 // 4. Generator Features & Script Binding Validation
 console.log('\n[4] Generator Features (Mobile Dock, AutoDraft & Legal Guidance):');
-['rent-agreement.html', 'police-gd.html', 'money-loan.html', 'leave-application.html'].forEach(file => {
+['rent-agreement.html', 'commercial-rent.html', 'police-gd.html', 'money-loan.html', 'leave-application.html', 'vehicle-sale.html', 'bayna-agreement.html'].forEach(file => {
   const content = fs.readFileSync(path.join(ROOT_DIR, file), 'utf8');
   assert(content.includes('mobile-action-dock'), `${file} has Mobile Action Dock`);
   assert(content.includes('legal-guidance-card'), `${file} has Legal Guidance Checklist Card`);
