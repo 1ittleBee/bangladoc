@@ -1256,9 +1256,11 @@
         if (tool === 'pen' || tool === 'highlighter') {
           this.drawingCanvas.style.pointerEvents = 'auto';
           this.drawingCanvas.style.cursor = 'crosshair';
+          this.drawingCanvas.style.zIndex = '6';
         } else {
           this.drawingCanvas.style.pointerEvents = 'none';
           this.drawingCanvas.style.cursor = 'default';
+          this.drawingCanvas.style.zIndex = '3';
         }
       }
 
