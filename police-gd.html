@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>থানায় জিডি (GD) করার আবেদন ফরম্যাট ও অনলাইন তৈরি | BanglaDoc</title>
+  <meta name="description" content="মোবাইল, এনআইডি (NID), বা সার্টিফিকেট হারানোর সাধারণ ডায়েরি (জিডি) আবেদন সহজে তৈরি করুন এবং প্রিন্ট বা PDF ডাউনলোড করুন। ১০০% সঠিক ফরম্যাট ও ক্লায়েন্ট-সাইড নিরাপত্তা।">
+  <link rel="canonical" href="https://bangladoc.com/police-gd.html">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Structured Data: FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "থানায় জিডি করতে কি কোনো সরকারি ফি বা টাকা লাগে?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "না, বাংলাদেশ পুলিশের নিয়ম অনুযায়ী থানায় সাধারণ ডায়েরি (জিডি) করতে কোনো প্রকার সরকারি ফি বা টাকা লাগে না। এটি সম্পূর্ণ বিনামূল্যে করা যায়।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "মোবাইল হারালে জিডিতে কী কী তথ্য দেওয়া আবশ্যক?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "মোবাইল হারানোর ক্ষেত্রে ফোনের ব্র্যান্ড, মডেল, সিম নম্বর এবং ১৫ ডিজিটের আইএমইআই (IMEI) নম্বর উল্লেখ করা আবশ্যক।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "জিডির কপি দিয়ে কি নতুন সিম বা এনআইডি তোলা যায়?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "হ্যাঁ, থানায় আবেদন জমা দিয়ে অফিসিয়াল সিল ও জিডি নম্বরযুক্ত ফটোকপি নিয়ে আপনি সিম রি-ইস্যু বা ডুপ্লিকেট এনআইডি কার্ড তুলতে পারবেন।"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">নথী</div>
+        <div class="logo-text">
+          <span class="logo-title">Bangla<span>Doc</span></span>
+          <span class="logo-tagline">সহজ আইনি ও প্রশাসনিক কাগজপত্র</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">হোম</a></li>
+          <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
+          <li><a href="police-gd.html" class="active">জিডি দরখাস্ত</a></li>
+          <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
+          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span class="badge badge-privacy">১০০% নিরাপদ</span>
+        ব্যক্তিগত তথ্য আপনার ব্রাউজারেই প্রক্রিয়াজাত হয়
+      </div>
+      <h1 class="hero-title">থানায় সাধারণ ডায়েরি <span>(জিডি) আবেদন জেনারেটর</span></h1>
+      <p class="hero-subtitle">মোবাইল, এনআইডি বা সনদপত্র হারানোর অফিসিয়াল আবেদন পত্র তৈরি করুন নিমেষেই।</p>
+    </div>
+  </section>
+
+  <!-- Generator Workspace -->
+  <main class="container">
+    <div class="generator-workspace">
+      
+      <!-- Input Form Panel -->
+      <section class="form-panel" aria-label="জিডি আবেদনের তথ্য ফরম">
+        <div class="panel-header">
+          <h2 class="panel-title">জিডি আবেদনের বিবরণ দিন</h2>
+          <p class="panel-desc">হারানোর ধরন নির্বাচন করুন এবং প্রয়োজনীয় বিবরণ দিন।</p>
+        </div>
+
+        <form id="gdForm" onsubmit="return false;">
+          
+          <!-- Category Selector -->
+          <div class="form-section">
+            <div class="section-label">হারানোর ধরন</div>
+            <div class="form-group">
+              <label for="gdType">কোন জিনিস হারিয়ে গেছে?</label>
+              <select id="gdType" class="form-control" onchange="changeGdPreset()">
+                <option value="mobile" selected>মোবাইল ফোন হারানো</option>
+                <option value="nid">জাতীয় পরিচয়পত্র (NID) হারানো</option>
+                <option value="certificate">এসএসসি / এইচএসসি সার্টিফিকেট হারানো</option>
+                <option value="custom">অন্যান্য মূল্যবান দলিল বা সামগ্রী</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Police Station & Officer -->
+          <div class="form-section">
+            <div class="section-label">থানার বিবরণ</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="thanaName">থানার নাম *</label>
+                <input type="text" id="thanaName" class="form-control" value="ধানমন্ডি থানা">
+              </div>
+              <div class="form-group">
+                <label for="thanaDistrict">জেলা *</label>
+                <input type="text" id="thanaDistrict" class="form-control" value="ঢাকা">
+              </div>
+            </div>
+          </div>
+
+          <!-- Applicant Information -->
+          <div class="form-section">
+            <div class="section-label">আবেদনকারীর তথ্য</div>
+            <div class="form-group">
+              <label for="applicantName">আপনার পূর্ণ নাম *</label>
+              <input type="text" id="applicantName" class="form-control" value="মোঃ তানভীর আহমেদ" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="applicantFather">পিতা / স্বামীর নাম *</label>
+                <input type="text" id="applicantFather" class="form-control" value="মোঃ ফজলুর রহমান">
+              </div>
+              <div class="form-group">
+                <label for="applicantNid">এনআইডি নম্বর</label>
+                <input type="text" id="applicantNid" class="form-control" value="১৯৯১২৬৯২৫৮৭৪৫৬">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="applicantPhone">যোগাযোগের মোবাইল নম্বর *</label>
+                <input type="text" id="applicantPhone" class="form-control" value="০১৭XXXXXXXX">
+              </div>
+              <div class="form-group">
+                <label for="applicantAddress">বর্তমান ঠিকানা *</label>
+                <input type="text" id="applicantAddress" class="form-control" value="বাসা নং- ১৫, রোড- ০৩, ধানমন্ডি, ঢাকা">
+              </div>
+            </div>
+          </div>
+
+          <!-- Incident Details -->
+          <div class="form-section">
+            <div class="section-label">ঘটনার বিবরণ ও হারানো সামগ্রী</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="incidentDate">ঘটনার তারিখ *</label>
+                <input type="date" id="incidentDate" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="incidentTime">আনুমানিক সময়</label>
+                <input type="text" id="incidentTime" class="form-control" value="সন্ধ্যা ৭:৩০ ঘটিকা">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="incidentPlace">যে স্থান থেকে হারিয়ে গেছে *</label>
+              <input type="text" id="incidentPlace" class="form-control" value="ধানমন্ডি ২৭ নম্বর বাস স্ট্যান্ডের সামনে">
+            </div>
+            <div class="form-group">
+              <label for="itemDescription">হারানো সামগ্রীর বিস্তারিত বিবরণ *</label>
+              <textarea id="itemDescription" class="form-control" rows="4">আমার ব্যবহৃত স্যামসাং গ্যালাক্সি এ৫৪ (Samsung Galaxy A54 5G) মডেলের মোবাইল ফোন, যার আইএমইআই নং- ১: ৩৫৭৮৯৬১২৩৪৫৬৭৮৯ এবং ব্যবহৃত গ্রামীণফোন সিম নং- ০১৭XXXXXXXX।</textarea>
+            </div>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- Live Document Preview Panel -->
+      <section class="preview-panel" aria-label="জিডি আবেদন প্রিভিউ">
+        <div class="preview-toolbar">
+          <div class="preview-title-bar">
+            <span>📄 প্রিন্ট-রেডি দরখাস্ত (A4 সাইজ)</span>
+          </div>
+          <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="copyBtn" onclick="copyDocumentText()">
+              📋 কপি
+            </button>
+            <button type="button" class="btn btn-primary" id="printBtn" onclick="window.print()">
+              🖨️ প্রিন্ট / PDF সংরক্ষণ
+            </button>
+          </div>
+        </div>
+
+        <!-- The Printable Document Container -->
+        <article class="document-sheet" id="documentSheet">
+          <div class="doc-watermark">BanglaDoc</div>
+
+          <div style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            তারিখ: <span id="viewTodayDate" class="highlight-field">১৭ অক্টোবর, ২০২৬ খ্রিষ্টাব্দ</span><br>
+            বরাবর,<br>
+            <strong>অফিসার ইনচার্জ (ওসি)</strong><br>
+            <span id="viewThanaName" class="highlight-field">ধানমন্ডি থানা</span>, 
+            <span id="viewThanaDistrict" class="highlight-field">ঢাকা</span>।<br><br>
+            <strong>বিষয়: সাধারণ ডায়েরি (GD) করার জন্য আবেদন।</strong>
+          </div>
+
+          <div style="font-size: 0.95rem; line-height: 1.8; text-align: justify; margin-bottom: 1.5rem;">
+            জনাব,<br>
+            বিনীত নিবেদন এই যে, আমি নিম্ন স্বাক্ষরকারী 
+            <span id="viewApplicantName" class="highlight-field">মোঃ তানভীর আহমেদ</span>, 
+            পিতা: <span id="viewApplicantFather">মোঃ ফজলুর রহমান</span>, 
+            বর্তমান ঠিকানা: <span id="viewApplicantAddress">বাসা নং- ১৫, রোড- ০৩, ধানমন্ডি, ঢাকা</span>, 
+            এনআইডি নং: <span id="viewApplicantNid">১৯৯১২৬৯২৫৮৭৪৫৬</span>, 
+            মোবাইল: <span id="viewApplicantPhone">০১৭XXXXXXXX</span>—এই মর্মে আপনার থানায় সাধারণ ডায়েরি করার আবেদন করিতেছি যে—
+          </div>
+
+          <div style="font-size: 0.95rem; line-height: 1.8; text-align: justify; margin-bottom: 1.5rem;">
+            গত <span id="viewIncidentDate" class="highlight-field">১৭ অক্টোবর, ২০২৬ খ্রিষ্টাব্দ</span> তারিখ আনুমানিক 
+            <span id="viewIncidentTime" class="highlight-field">সন্ধ্যা ৭:৩০ ঘটিকা</span>-র সময় 
+            <span id="viewIncidentPlace" class="highlight-field">ধানমন্ডি ২৭ নম্বর বাস স্ট্যান্ডের সামনে</span> অবস্থানকালে আমার অজ্ঞাতসারে নিম্নবর্ণিত সামগ্রীটি হারাইয়া যায়:
+          </div>
+
+          <!-- Description Box -->
+          <div style="background-color: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 6px; padding: 1rem 1.25rem; font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            <strong>হারানো সামগ্রীর বিবরণ:</strong><br>
+            <span id="viewItemDescription" style="white-space: pre-wrap;">আমার ব্যবহৃত স্যামসাং গ্যালাক্সি এ৫৪ (Samsung Galaxy A54 5G) মডেলের মোবাইল ফোন, যার আইএমইআই নং- ১: ৩৫৭৮৯৬১২৩৪৫৬৭৮৯ এবং ব্যবহৃত গ্রামীণফোন সিম নং- ০১৭XXXXXXXX।</span>
+          </div>
+
+          <div style="font-size: 0.95rem; line-height: 1.8; text-align: justify; margin-bottom: 2rem;">
+            উক্ত হারানো সামগ্রীটি সম্ভাব্য সকল স্থানে খোঁজাখুঁজি করিয়াও কোনো সন্ধান পাইতে ব্যর্থ হইয়াছি। ভবিষ্যতে কোনো আইনি জটিলতা বা অপব্যবহার রোধকল্পে এবং ডুপ্লিকেট কপি/সিম উত্তোলনের সুবিধার্থে বিষয়টি আপনার থানায় সাধারণ ডায়েরি (GD) হিসেবে নথিভুক্ত করিয়া রাখা একান্ত প্রয়োজন।
+          </div>
+
+          <div style="font-size: 0.95rem; line-height: 1.8; text-align: justify; margin-bottom: 3rem;">
+            অতএব, মহোদয়ের নিকট বিনীত প্রার্থনা, উপরোক্ত বিষয়টি আপনার থানার সাধারণ ডায়েরি (GD) বহিতে লিপিবদ্ধ করিয়া আমাকে একটি অনুলিপি প্রদান করিতে জনাবের সদয় মর্জি হয়।
+          </div>
+
+          <div style="display: flex; justify-content: flex-end;">
+            <div style="text-align: center; border-top: 1px dashed #94a3b8; padding-top: 1.5rem; width: 220px; font-size: 0.9rem; font-weight: 600;">
+              বিনীত নিবেদক,<br>
+              <span id="viewSignName">মোঃ তানভীর আহমেদ</span><br>
+              মোবাইল: <span id="viewSignPhone">০১৭XXXXXXXX</span>
+            </div>
+          </div>
+
+        </article>
+      </section>
+
+    </div>
+
+    <!-- SEO & AdSense Content Section -->
+    <article class="seo-guide-section">
+      <div class="guide-header">
+        <h2 class="guide-title">থানায় জিডি করার সঠিক নিয়ম ও আইনি নির্দেশিকা</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">হারানো জিনিসপত্র উদ্ধার ও আইনি সুরক্ষায় সাধারণ ডায়েরির গুরুত্ব</p>
+      </div>
+
+      <div class="guide-content">
+        <p>
+          দৈনন্দিন জীবনে মোবাইল ফোন, জাতীয় পরিচয়পত্র (NID), শিক্ষাগত সনদের মূল কপি, চেকবই কিংবা পাসপোর্ট হারিয়ে গেলে প্রথম ও প্রধান করণীয় হলো সংশ্লিষ্ট এলাকার থানায় একটি সাধারণ ডায়েরি (General Diary বা GD) করা।
+        </p>
+
+        <h3>জিডি করার পর করণীয় ও অনুলিপি সংগ্রহ</h3>
+        <div class="checklist-box">
+          <ul>
+            <li>দরখাস্তটি ২ (দুই) কপি প্রিন্ট করে নিয়ে থানায় দায়িত্বপ্রাপ্ত ডিউটি অফিসারের নিকট জমা দিন।</li>
+            <li>ডিউটি অফিসার দরখাস্তটি গ্রহণ করে জিডি রেজিস্টারে এন্ট্রি করবেন এবং জিডি নম্বর ও তারিখ প্রদান করবেন।</li>
+            <li>এক কপি থানায় রক্ষিত থাকবে এবং অন্য কপিতে থানার সিল ও অফিসারের স্বাক্ষরসহ আপনাকে একটি অনুলিপি (Receiving Copy) প্রদান করা হবে।</li>
+            <li>এই রিসিভিং কপিটি যত্নসহকারে সংরক্ষণ করুন; কারণ নতুন সিম তুলতে বা ডুপ্লিকেট সার্টিফিকেট/এনআইডি আবেদনের সময় এটি বাধ্যতামূলকভাবে প্রদর্শন করতে হবে।</li>
+          </ul>
+        </div>
+
+        <h3>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</h3>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-question">প্রশ্ন: কোন থানায় জিডি করতে হয়?</div>
+            <div class="faq-answer">উত্তর: যে থানা এলাকার মধ্যে জিনিসটি হারিয়ে গেছে বা ঘটনাটি ঘটেছে, সাধারণত সেই থানার আওতাধীন থানায় জিডি করা সবচেয়ে কার্যকর।</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">প্রশ্ন: জিডি করার জন্য কি কোনো টাকা দিতে হয়?</div>
+            <div class="faq-answer">উত্তর: সম্পূর্ণ ভুল ধারণা। জিডি করার জন্য কোনো প্রকার ফি প্রযোজ্য নয়। এটি নাগরিকদের জন্য বাংলাদেশ পুলিশের একটি সম্পূর্ণ বিনামূল্যে সেবা।</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">প্রশ্ন: মোবাইল হারানোর ক্ষেত্রে IMEI নম্বর কেন জরুরি?</div>
+            <div class="faq-answer">উত্তর: পুলিশ ট্র্যাকিং সফটওয়্যারের মাধ্যমে হারিয়ে যাওয়া ফোনটি পরবর্তীতে অন্য কোনো সিম ঢুকিয়ে চালু করা হলে তৎক্ষণাৎ শনাক্ত করতে IMEI নম্বর অপরিহার্য।</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>BanglaDoc.com</h4>
+          <p>বাংলাদেশের নাগরিকদের জন্য দ্রুত, নির্ভুল এবং নির্ভরযোগ্য আইনি ও প্রশাসনিক নথিপত্র তৈরির উন্মুক্ত ওয়েব প্ল্যাটফর্ম।</p>
+        </div>
+        <div class="footer-column">
+          <h5>জরুরি ডকুমেন্টস</h5>
+          <ul class="footer-links">
+            <li><a href="rent-agreement.html">বাড়ি ভাড়ার চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html">থানায় জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html">টাকা ধারের অঙ্গীকারনামা</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h5>প্রয়োজনীয় লিংক</h5>
+          <ul class="footer-links">
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+            <li><a href="privacy-policy.html">গোপনীয়তা নীতি (Privacy)</a></li>
+            <li><a href="terms.html">ব্যবহারের শর্তাবলী (Terms)</a></li>
+            <li><a href="disclaimer.html">আইনি অস্বীকৃতি (Disclaimer)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© ২০২৬ BanglaDoc.com — সর্বস্বত্ব সংরক্ষিত।</div>
+        <div>১০০% ক্লায়েন্ট-সাইড প্রযুক্তি দ্বারা চালিত</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/converter.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const today = new Date();
+      document.getElementById('viewTodayDate').innerText = BanglaConverter.formatBanglaDate(today);
+      
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      document.getElementById('incidentDate').value = `${yyyy}-${mm}-${dd}`;
+      document.getElementById('viewIncidentDate').innerText = BanglaConverter.formatBanglaDate(today);
+
+      function bindField(inputId, viewId, extraSyncId) {
+        const input = document.getElementById(inputId);
+        const view = document.getElementById(viewId);
+        if (!input || !view) return;
+
+        input.addEventListener('input', function () {
+          const val = input.value.trim();
+          view.innerText = val || '........';
+          if (extraSyncId) {
+            const extra = document.getElementById(extraSyncId);
+            if (extra) extra.innerText = val || '........';
+          }
+        });
+      }
+
+      bindField('thanaName', 'viewThanaName');
+      bindField('thanaDistrict', 'viewThanaDistrict');
+      bindField('applicantName', 'viewApplicantName', 'viewSignName');
+      bindField('applicantFather', 'viewApplicantFather');
+      bindField('applicantNid', 'viewApplicantNid');
+      bindField('applicantPhone', 'viewApplicantPhone', 'viewSignPhone');
+      bindField('applicantAddress', 'viewApplicantAddress');
+      bindField('incidentTime', 'viewIncidentTime');
+      bindField('incidentPlace', 'viewIncidentPlace');
+      bindField('itemDescription', 'viewItemDescription');
+
+      document.getElementById('incidentDate').addEventListener('change', function () {
+        document.getElementById('viewIncidentDate').innerText = BanglaConverter.formatBanglaDate(this.value);
+      });
+    });
+
+    const presets = {
+      mobile: "আমার ব্যবহৃত স্যামসাং গ্যালাক্সি এ৫৪ (Samsung Galaxy A54 5G) মডেলের মোবাইল ফোন, যার আইএমইআই নং- ১: ৩৫৭৮৯৬১২৩৪৫৬৭৮৯ এবং ব্যবহৃত গ্রামীণফোন সিম নং- ০১৭XXXXXXXX।",
+      nid: "আমার নামীয় আসল জাতীয় পরিচয়পত্র (Smart NID Card), যার এনআইডি নম্বর: ১৯৮৫২৬৯২৫৮৭৪৫২। কার্ডটিতে আমার নাম: মোঃ তানভীর আহমেদ ও পিতার নাম: মোঃ ফজলুর রহমান লিপিবদ্ধ রহিয়াছে।",
+      certificate: "আমার মাধ্যমিক স্কুল সার্টিফিকেট (এসএসসি) পরীক্ষার মূল সনদপত্র। পরীক্ষার সন: ২০১৮, বোর্ড: ঢাকা, রোল নম্বর: ১২৩৪৫৬, রেজিস্ট্রেশন নম্বর: ৯৮৭৬৫৪ এবং প্রাপ্ত জিপিএ: ৫.০০।",
+      custom: "হারিয়ে যাওয়া সামগ্রীর পূর্ণ নাম, মডেল নম্বর, সিরিয়াল বা রেজিস্ট্রেশন নম্বর এবং সনাক্তকরণ চিহ্নের বিবরণ এখানে লিখুন।"
+    };
+
+    function changeGdPreset() {
+      const type = document.getElementById('gdType').value;
+      const descArea = document.getElementById('itemDescription');
+      const viewArea = document.getElementById('viewItemDescription');
+      descArea.value = presets[type] || '';
+      viewArea.innerText = presets[type] || '';
+    }
+
+    function copyDocumentText() {
+      const doc = document.getElementById('documentSheet');
+      navigator.clipboard.writeText(doc.innerText).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✓ কপি সম্পন্ন!';
+        btn.style.color = '#047857';
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
