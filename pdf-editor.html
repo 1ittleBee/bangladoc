@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0XZVNWJWZQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0XZVNWJWZQ');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ফ্রি অনলাইন বাংলা PDF এডিটর ও সাইনার - BanglaDoc</title>
+  <meta name="description" content="যেকোনো PDF ডকুমেন্টে বাংলায় লিখুন, ডিজিটাল স্বাক্ষর বসান, হাইলাইট ও হোয়াইটআউট দিয়ে গোপনীয় তথ্য মুছে নিন। ১০০% ক্লায়েন্ট-সাইড নিরাপদ ও সম্পূর্ণ ফ্রি।">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://bangladoc.com/pdf-editor.html">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/icons/logo-mark.svg">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="bn_BD">
+  <meta property="og:site_name" content="BanglaDoc">
+  <meta property="og:url" content="https://bangladoc.com/pdf-editor.html">
+  <meta property="og:title" content="ফ্রি অনলাইন বাংলা PDF এডিটর ও সাইনার - BanglaDoc">
+  <meta property="og:description" content="যেকোনো PDF ফাইলে সরাসরি বাংলায় টেক্সট লিখুন, ডিজিটাল স্বাক্ষর দিন ও অপ্রয়োজনীয় অংশ হোয়াইটআউট করুন। ১০০% নিরাপদ ও সম্পূর্ণ ফ্রি।">
+  <meta property="og:image" content="https://bangladoc.com/assets/icons/logo-horizontal.svg">
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://bangladoc.com/pdf-editor.html#app",
+        "name": "BanglaDoc PDF Editor & Signer",
+        "url": "https://bangladoc.com/pdf-editor.html",
+        "description": "ফ্রি ক্লায়েন্ট-সাইড বাংলা PDF এডিটর, ডিজিটাল সিগনেচার ও রিডাকশন টুল।",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BDT"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "হোম",
+            "item": "https://bangladoc.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "PDF এডিটর",
+            "item": "https://bangladoc.com/pdf-editor.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="BanglaDoc Home">
+        <img src="assets/icons/logo-mark.svg" class="logo-icon-svg" width="42" height="42" alt="BanglaDoc Logo">
+        <div class="logo-text">
+          <span class="logo-title">Bangla<span>Doc</span></span>
+          <span class="logo-tagline">সহজ আইনি ও প্রশাসনিক কাগজপত্র</span>
+        </div>
+      </a>
+      <div class="header-right">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">হোম</a></li>
+            <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
+            <li><a href="leave-application.html">ছুটির আবেদন</a></li>
+            <li><a href="pdf-editor.html" class="active">PDF এডিটর</a></li>
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="থিম পরিবর্তন">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PDF Editor Container -->
+  <div id="pdfEditorApp">
+    
+    <!-- 1. Welcome / Dropzone Screen -->
+    <section class="pdf-welcome-screen" id="welcomeScreen">
+      <div style="text-align: center;">
+        <div class="pdf-hero-badge">
+          <span class="live-indicator"></span>
+          ১০০% ক্লায়েন্ট-সাইড প্রযুক্তি — আপনার ফাইল কোথাও আপলোড হয় না
+        </div>
+        <h1 style="font-size: 2.25rem; font-weight: 800; color: var(--text-ink); margin-bottom: 0.75rem; letter-spacing: -0.02em;">
+          ফ্রি অনলাইন <span>বাংলা PDF এডিটর</span> ও সাইনার
+        </h1>
+        <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 650px; margin: 0 auto;">
+          যেকোনো PDF ডকুমেন্টে সরাসরি বাংলায় টেক্সট লিখুন, ডিজিটাল স্বাক্ষর যোগ করুন, হাইলাইট বা হোয়াইটআউট করুন। সম্পূর্ণ নিরাপদ ও ইনস্ট্যান্ট।
+        </p>
+      </div>
+
+      <!-- Drag & Drop Zone -->
+      <div class="pdf-dropzone" id="pdfDropZone">
+        <input type="file" id="pdfFileInput" accept="application/pdf" style="display: none;" />
+        <div class="dropzone-icon-ring">📄</div>
+        <h2 class="dropzone-title">আপনার PDF ফাইলটি এখানে এনে ছেড়ে দিন</h2>
+        <p class="dropzone-desc">অথবা আপনার ডিভাইস থেকে ফাইল বাছাই করতে এখানে ক্লিক করুন</p>
+        <div class="dropzone-tags">
+          <span>✓ ১০০% ব্রাউজার প্রসেসিং</span>
+          <span>•</span>
+          <span>✓ সব ধরণের PDF সমর্থিত</span>
+          <span>•</span>
+          <span>✓ সর্বোচ্চ ৫০ এমবি</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="welcome-actions-row">
+        <button type="button" class="btn-demo-try" id="btnTryDemo">
+          ✨ নমুনা চুক্তিপত্র দিয়ে পরীক্ষা করুন
+        </button>
+        <button type="button" class="btn-blank-doc" id="btnBlankDoc">
+          📝 নতুন ফাঁকা A4 পেজ তৈরি করুন
+        </button>
+      </div>
+
+      <!-- Feature Highlights -->
+      <div class="features-trio-grid">
+        <div class="trio-card">
+          <div class="trio-icon">🔒</div>
+          <h3 class="trio-title">১০০% ডেটা গোপনীয়তা</h3>
+          <p class="trio-desc">আপনার ফাইল আপনার কম্পিউটারেই থাকে। কোনো ক্লাউড সার্ভার বা ডাটাবেজে আপনার ফাইল আপলোড হয় না।</p>
+        </div>
+        <div class="trio-card">
+          <div class="trio-icon">✍️</div>
+          <h3 class="trio-title">ডিজিটাল স্বাক্ষর</h3>
+          <p class="trio-desc">মাউস বা টাচস্ক্রিনে সাইন করুন, নাম টাইপ করে বা ছবির ব্যাকগ্রাউন্ড মুছে যেকোনো স্থানে স্বাক্ষর বসান।</p>
+        </div>
+        <div class="trio-card">
+          <div class="trio-icon">📝</div>
+          <h3 class="trio-title">বাংলা টাইপিং</h3>
+          <p class="trio-desc">যুক্তাক্ষর ও কালপুরুষ ফন্টে নিখুঁত বাংলা লেখা বসান। ফ্রন্ট সাইজ, বোল্ড ও কালার কাস্টমাইজ করুন।</p>
+        </div>
+        <div class="trio-card">
+          <div class="trio-icon">🛡️</div>
+          <h3 class="trio-title">হোয়াইটআউট ও সিল</h3>
+          <p class="trio-desc">এনআইডি বা গোপনীয় তথ্য সাদা/কালো বক্স দিয়ে ঢেকে ফেলুন এবং অনুমোদিত/পরিশোধিত সিল স্ট্যাম্প যোগ করুন।</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Workspace Screen -->
+    <section class="pdf-workspace" id="workspaceScreen">
+      
+      <!-- Top Control Bar -->
+      <div class="pdf-top-bar">
+        <div class="top-bar-left">
+          <button type="button" class="btn-icon-bar" id="btnNewDoc" title="নতুন ফাইল খুলুন">
+            📁 ফাইল
+          </button>
+          <span class="file-title-badge" id="docTitleLabel">ডকুমেন্ট.pdf</span>
+        </div>
+
+        <div class="top-bar-center">
+          <button type="button" class="btn-icon-bar" id="btnPrevPage" title="পূর্ববর্তী পেজ">◀</button>
+          <span class="page-indicator-pill" id="pageIndicator">১ / ১</span>
+          <button type="button" class="btn-icon-bar" id="btnNextPage" title="পরবর্তী পেজ">▶</button>
+
+          <span style="border-left: 1px solid var(--border-hairline); height: 20px; margin: 0 4px;"></span>
+
+          <button type="button" class="btn-icon-bar" id="btnZoomOut" title="জুম ছোট">-</button>
+          <span class="page-indicator-pill" id="zoomDisplay">১০০%</span>
+          <button type="button" class="btn-icon-bar" id="btnZoomIn" title="জুম বড়">+</button>
+          <button type="button" class="btn-icon-bar" id="btnZoomFit" title="স্ক্রিন ফিট">ফিট</button>
+
+          <span style="border-left: 1px solid var(--border-hairline); height: 20px; margin: 0 4px;"></span>
+
+          <button type="button" class="btn-icon-bar" id="btnRotatePage" title="পেজ ৯০° ঘোরান">↻ ঘোরান</button>
+          <button type="button" class="btn-icon-bar" id="btnDeletePage" title="পেজ মুছুন">🗑️ পেজ মুছুন</button>
+          <button type="button" class="btn-icon-bar" id="btnAddPage" title="নতুন পেজ যোগ করুন">➕ পেজ যোগ</button>
+        </div>
+
+        <div class="top-bar-right">
+          <button type="button" class="btn-icon-bar" id="btnUndo" title="পূর্বাবস্থা (Ctrl+Z)">↶</button>
+          <button type="button" class="btn-icon-bar" id="btnRedo" title="পুনরায় করুন (Ctrl+Y)">↷</button>
+          <button type="button" class="btn-icon-bar" id="btnPrintPdf" title="প্রিন্ট করুন">🖨️ প্রিন্ট</button>
+          <button type="button" class="btn-export-studio" id="btnExportPdf" title="এডিটেড PDF ডাউনলোড করুন">
+            ⬇️ PDF ডাউনলোড
+          </button>
+        </div>
+      </div>
+
+      <!-- Secondary Tool Ribbon -->
+      <div class="pdf-tool-ribbon">
+        <button type="button" class="tool-pill active" data-tool="select" title="সিলেক্ট ও মুভ">
+          👆 সিলেক্ট
+        </button>
+        <button type="button" class="tool-pill" data-tool="text" title="বাংলা বা ইংরেজি টেক্সট">
+          📝 টেক্সট
+        </button>
+        <button type="button" class="tool-pill" data-tool="signature" title="ডিজিটাল স্বাক্ষর">
+          ✍️ স্বাক্ষর
+        </button>
+        <button type="button" class="tool-pill" data-tool="pen" title="ফ্রিহ্যান্ড পেন">
+          🖊️ পেন
+        </button>
+        <button type="button" class="tool-pill" data-tool="highlighter" title="মার্কার হাইলাইটার">
+          🖍️ হাইলাইটার
+        </button>
+        <button type="button" class="tool-pill" data-tool="whiteout" title="হোয়াইটআউট / তথ্য মুছে ফেলা">
+          ⬜ হোয়াইটআউট
+        </button>
+        <button type="button" class="tool-pill" data-tool="stamp" title="রেডিমেড সিল ও স্ট্যাম্প">
+          🏷️ স্ট্যাম্প
+        </button>
+        <button type="button" class="tool-pill" data-tool="date" title="আজকের তারিখ যুক্ত করুন">
+          📅 তারিখ
+        </button>
+        <button type="button" class="tool-pill" data-tool="image" title="ছবি বা সিল যুক্ত করুন">
+          🖼️ ছবি
+        </button>
+      </div>
+
+      <!-- Contextual Tool Sub-Bar -->
+      <div class="pdf-contextual-bar" id="contextualBar">
+        
+        <!-- Text Options -->
+        <div class="opt-group" id="optGroupText" style="display: none;">
+          <span class="opt-label">সাইজ:</span>
+          <select id="optTextSize" class="opt-select">
+            <option value="12">১২ px</option>
+            <option value="14">১৪ px</option>
+            <option value="16" selected>১৬ px</option>
+            <option value="18">১৮ px</option>
+            <option value="22">২২ px</option>
+            <option value="26">২৬ px</option>
+            <option value="32">৩২ px</option>
+          </select>
+          <span class="opt-label">রং:</span>
+          <input type="color" id="optTextColor" value="#0f172a" class="opt-color" />
+          <button type="button" class="opt-btn-toggle" id="optTextBold" title="বোল্ড">B</button>
+        </div>
+
+        <!-- Pen Options -->
+        <div class="opt-group" id="optGroupPen" style="display: none;">
+          <span class="opt-label">পেন সাইজ:</span>
+          <select id="optPenWidth" class="opt-select">
+            <option value="2">২ px (পাতলা)</option>
+            <option value="4" selected>৪ px (স্বাভাবিক)</option>
+            <option value="6">৬ px (মোটা)</option>
+            <option value="10">১০ px (গাঢ়)</option>
+          </select>
+          <span class="opt-label">কালি:</span>
+          <input type="color" id="optPenColor" value="#0f172a" class="opt-color" />
+        </div>
+
+        <!-- Highlighter Options -->
+        <div class="opt-group" id="optGroupHighlighter" style="display: none;">
+          <span class="opt-label">হাইলাইটার রং:</span>
+          <select id="optHighlighterColor" class="opt-select">
+            <option value="rgba(254, 240, 138, 0.45)" selected>হলুদ (Yellow)</option>
+            <option value="rgba(187, 247, 208, 0.45)">সবুজ (Neon Green)</option>
+            <option value="rgba(186, 230, 253, 0.45)">আকাশি (Sky Blue)</option>
+            <option value="rgba(251, 207, 232, 0.45)">গোলাপি (Pink)</option>
+          </select>
+        </div>
+
+        <!-- Whiteout Options -->
+        <div class="opt-group" id="optGroupWhiteout" style="display: none;">
+          <span class="opt-label">রিডাকশন কালার:</span>
+          <select id="optWhiteoutColor" class="opt-select">
+            <option value="#ffffff" selected>সাদা (Whiteout)</option>
+            <option value="#000000">কালো (Blackout)</option>
+          </select>
+        </div>
+
+        <!-- Stamp Options -->
+        <div class="opt-group" id="optGroupStamp" style="display: none;">
+          <span class="opt-label">সিল টাইপ:</span>
+          <select id="optStampPreset" class="opt-select">
+            <option value="APPROVED" selected>অনুমোদিত (APPROVED)</option>
+            <option value="VERIFIED">যাচাইকৃত (VERIFIED)</option>
+            <option value="PAID">পরিশোধিত (PAID)</option>
+            <option value="REJECTED">বাতিল (REJECTED)</option>
+            <option value="URGENT">জরুরি (URGENT)</option>
+            <option value="CONFIDENTIAL">গোপনীয় (CONFIDENTIAL)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Studio Editor Body (Sidebar + Viewport) -->
+      <div class="pdf-editor-body">
+        
+        <!-- Left Thumbnails Sidebar -->
+        <aside class="pdf-thumbnails-sidebar" id="thumbnailList" aria-label="পেজ থাম্বনেইল তালিকা"></aside>
+
+        <!-- Center Canvas Viewport -->
+        <main class="pdf-canvas-viewport" id="pdfViewport">
+          <div class="canvas-wrapper" id="canvasWrapper">
+            <canvas id="pdfBaseCanvas"></canvas>
+            <canvas id="drawingCanvas"></canvas>
+            <div id="annotationOverlay"></div>
+          </div>
+        </main>
+
+      </div>
+
+    </section>
+
+    <!-- 3. Digital Signature Modal -->
+    <div class="signature-modal" id="signatureModal" role="dialog" aria-modal="true" aria-label="ডিজিটাল স্বাক্ষর উইন্ডো">
+      <div class="sig-modal-content">
+        <div class="sig-header">
+          <h3 class="sig-title">ডিজিটাল স্বাক্ষর যুক্ত করুন</h3>
+          <button type="button" class="btn-icon-bar" id="btnCloseSignature">✕</button>
+        </div>
+
+        <div class="sig-tabs">
+          <button type="button" class="sig-tab-btn active" data-sig-tab="paneDraw" data-sig-mode="draw">
+            ✍️ আঁকুন
+          </button>
+          <button type="button" class="sig-tab-btn" data-sig-tab="paneType" data-sig-mode="type">
+            ⌨️ নাম লিখুন
+          </button>
+          <button type="button" class="sig-tab-btn" data-sig-tab="paneUpload" data-sig-mode="upload">
+            📁 ছবি আপলোড
+          </button>
+        </div>
+
+        <!-- Tab 1: Draw Pad -->
+        <div class="sig-pane active" id="paneDraw">
+          <canvas id="sigCanvas" width="460" height="150"></canvas>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button type="button" class="btn-icon-bar" id="btnClearSig">🔄 পরিষ্কার করুন</button>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">মাউস বা আঙুল দিয়ে বক্সের ভেতর সাইন করুন</span>
+          </div>
+        </div>
+
+        <!-- Tab 2: Typed Name -->
+        <div class="sig-pane" id="paneType">
+          <input type="text" id="sigTypedInput" class="sig-input-field" placeholder="আপনার পূর্ণ নাম বাংলায় বা ইংরেজিতে লিখুন..." />
+          <div style="margin-bottom: 0.75rem;">
+            <label style="font-size: 0.85rem; font-weight: 700;">স্বাক্ষরের স্টাইল:</label>
+            <select id="sigTypeStyle" class="opt-select" style="width: 100%; margin-top: 6px;">
+              <option value="bangla-calligraphy" selected>বাংলা ক্যালিগ্রাফি স্টাইল</option>
+              <option value="cursive">English Elegant Cursive</option>
+              <option value="serif">Formal Serif Script</option>
+              <option value="modern">Modern Minimalist</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tab 3: Upload Signature -->
+        <div class="sig-pane" id="paneUpload">
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+            কাগজে করা স্বাক্ষরের স্পষ্ট ছবি বা অফিশিয়াল সিল সিলেক্ট করুন:
+          </p>
+          <input type="file" id="sigFileInput" accept="image/*" class="sig-input-field" />
+        </div>
+
+        <div class="sig-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('signatureModal').classList.remove('show')">বাতিল</button>
+          <button type="button" class="btn btn-primary" id="btnApplySignature">স্বাক্ষর বসান</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Floating Mobile Action Dock -->
+    <div class="mobile-action-dock" id="mobileActionDock">
+      <div class="dock-status">
+        <span class="dock-pulse-dot"></span>
+        <span>PDF স্টুডিও সক্রিয়</span>
+      </div>
+      <div class="dock-buttons">
+        <button type="button" class="dock-btn dock-btn-preview" id="dockToolBtn" onclick="document.querySelector('[data-tool=signature]').click()">
+          ✍️ স্বাক্ষর
+        </button>
+        <button type="button" class="dock-btn dock-btn-print" id="dockExportBtn">
+          ⬇️ সেভ PDF
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Editorial Guide Section -->
+  <article class="seo-guide-section" style="max-width: 900px; margin: 3rem auto; padding: 0 1.25rem;">
+    <div class="guide-header">
+      <h2 class="guide-title">অনলাইনে PDF এডিট ও ডিজিটাল স্বাক্ষর করার সহজ নিয়মাবলী</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">কীভাবে আপনার ব্যক্তিগত তথ্য সুরক্ষিত রেখে যেকোনো PDF সংশোধন করবেন</p>
+    </div>
+
+    <div class="guide-content">
+      <p>
+        BanglaDoc-এর ফ্রি PDF এডিটর দিয়ে আপনি কোনো সফটওয়্যার ইনস্টল ছাড়াই সরাসরি ওয়েব ব্রাউজারে যেকোনো PDF ফাইল খুলতে এবং এডিট করতে পারবেন। সরকারি কাজের ফর্ম, চাকরির আবেদনপত্র কিংবা ব্যবসায়িক চুক্তিতে ভুল ত্রুটি সংশোধন এবং দ্রুত ডিজিটাল স্বাক্ষর করার জন্য এটি আদর্শ।
+      </p>
+
+      <h3>যেসব সুবিধা আপনি পাবেন:</h3>
+      <div class="checklist-box">
+        <ul>
+          <li><strong>বাংলায় টেক্সট ইনপুট:</strong> যেকোনো চুক্তি বা দরখাস্তে বাংলা ফন্টে নাম, ঠিকানা বা তারিখ নির্ভুলভাবে টাইপ করুন।</li>
+          <li><strong>ডিজিটাল সাইন ও সিল:</strong> কাগজের ডকুমেন্ট প্রিন্ট না করে সরাসরি ওয়েবপেইজে সাইন বা সিল বসিয়ে সেভ করুন।</li>
+          <li><strong>হোয়াইটআউট ও রিডাকশন:</strong> জাতীয় পরিচয়পত্র (NID), ব্যাংকের গোপন নম্বর বা ফোন নম্বর এক ক্লিকে ঢেকে ফেলুন।</li>
+          <li><strong>পেজ ম্যানেজমেন্ট:</strong> বাঁকা পেজ ৯০ ডিগ্রি সোজা করুন, অপ্রয়োজনীয় পৃষ্ঠা ডিলিট করুন অথবা নতুন খালি পাতা যোগ করুন।</li>
+        </ul>
+      </div>
+
+      <h3>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</h3>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question">প্রশ্ন: আমার আপলোড করা PDF ফাইল কি আপনারা সংরক্ষণ করেন?</div>
+          <div class="faq-answer">উত্তর: না, একদমই না। BanglaDoc সম্পূর্ণ ক্লায়েন্ট-সাইড প্রযুক্তিতে কাজ করে। আপনার PDF ফাইল এবং স্বাক্ষর কেবলমাত্র আপনার ব্রাউজারের মেমোরিতেই প্রক্রিয়াজাত হয়; কোনো সার্ভারে পাঠানো বা সংরক্ষণ করা হয় না।</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">প্রশ্ন: এডিটেড PDF প্রিন্ট বা ডাউনলোড করতে কোনো চার্জ লাগবে?</div>
+          <div class="faq-answer">উত্তর: না, BanglaDoc-এর সব ফিচার ১০০% বিনামূল্যে ব্যবহারযোগ্য। কোনো সাইন-আপ বা পেমেন্ট কার্ড লাগবে না।</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>BanglaDoc.com</h4>
+          <p>বাংলাদেশের নাগরিকদের জন্য দ্রুত, নির্ভুল এবং নির্ভরযোগ্য আইনি ও প্রশাসনিক নথিপত্র তৈরির উন্মুক্ত ওয়েব প্ল্যাটফর্ম।</p>
+        </div>
+        <div class="footer-column">
+          <h5>জরুরি ডকুমেন্টস</h5>
+          <ul class="footer-links">
+            <li><a href="rent-agreement.html">বাড়ি ভাড়ার চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html">থানায় জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html">টাকা ধারের অঙ্গীকারনামা</a></li>
+            <li><a href="pdf-editor.html">অনলাইন PDF এডিটর</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h5>প্রয়োজনীয় লিংক</h5>
+          <ul class="footer-links">
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+            <li><a href="privacy-policy.html">গোপনীয়তা নীতি (Privacy)</a></li>
+            <li><a href="terms.html">ব্যবহারের শর্তাবলী (Terms)</a></li>
+            <li><a href="disclaimer.html">আইনি অস্বীকৃতি (Disclaimer)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© ২০২৬ BanglaDoc.com — সর্বস্বত্ব সংরক্ষিত।</div>
+        <div>100% ক্লায়েন্ট-সাইড প্রযুক্তি দ্বারা চালিত</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/vendor/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      try {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/vendor/pdf.worker.min.js';
+      } catch (e) {
+        console.warn('Worker initialization fallback', e);
+      }
+    }
+  </script>
+  <script src="js/vendor/pdf-lib.min.js"></script>
+  <script src="js/converter.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/pdf-editor.js"></script>
+</body>
+</html>

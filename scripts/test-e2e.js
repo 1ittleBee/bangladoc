@@ -16,6 +16,7 @@ const HTML_FILES = [
   'leave-application.html',
   'vehicle-sale.html',
   'bayna-agreement.html',
+  'pdf-editor.html',
   'about.html',
   'privacy-policy.html',
   'terms.html',

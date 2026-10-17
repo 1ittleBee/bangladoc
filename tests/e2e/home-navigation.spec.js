@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('Homepage Discovery & Navigation Flow', () => {
-  test('loads homepage with vector logo, search bar, and 7 document cards', async ({ page }) => {
+  test('loads homepage with vector logo, search bar, and 8 catalog cards', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     // Check page title and official vector logo
@@ -15,9 +15,9 @@ test.describe('Homepage Discovery & Navigation Flow', () => {
     const searchInput = page.locator('#catalogSearchInput');
     await expect(searchInput).toBeVisible();
 
-    // Verify all 7 document cards are present
+    // Verify all 8 catalog cards are present (7 generators + PDF Editor)
     const cards = page.locator('.catalog-card');
-    await expect(cards).toHaveCount(7);
+    await expect(cards).toHaveCount(8);
   });
 
   test('filters document list dynamically on search input', async ({ page }) => {
@@ -34,9 +34,15 @@ test.describe('Homepage Discovery & Navigation Flow', () => {
     await expect(visibleCards).toHaveCount(1);
     await expect(visibleCards.first()).toContainText('ছুটির আবেদন');
 
+    // Search for "pdf"
+    await searchInput.fill('pdf');
+    const pdfCard = page.locator('.catalog-card:visible');
+    await expect(pdfCard).toHaveCount(1);
+    await expect(pdfCard.first()).toContainText('অনলাইন PDF এডিটর ও সাইনার');
+
     // Clear search
     await searchInput.fill('');
-    await expect(page.locator('.catalog-card:visible')).toHaveCount(7);
+    await expect(page.locator('.catalog-card:visible')).toHaveCount(8);
   });
 
   test('clicking "অফিসে ছুটির আবেদন" navigates to leave-application.html (not police GD)', async ({ page }) => {
@@ -55,5 +61,14 @@ test.describe('Homepage Discovery & Navigation Flow', () => {
 
     await expect(page).toHaveURL(/rent-agreement\.html/);
     await expect(page.locator('.doc-title')).toContainText('ভাড়ার চুক্তিপত্র');
+  });
+
+  test('clicking "অনলাইন PDF এডিটর ও সাইনার" navigates to pdf-editor.html', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const pdfCard = page.locator('.catalog-card', { hasText: 'অনলাইন PDF এডিটর ও সাইনার' });
+    await pdfCard.click();
+
+    await expect(page).toHaveURL(/pdf-editor\.html/);
+    await expect(page).toHaveTitle(/PDF এডিটর/);
   });
 });
