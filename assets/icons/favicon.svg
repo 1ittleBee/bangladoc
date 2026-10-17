@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bd-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e7c70" />
+      <stop offset="100%" stop-color="#064e46" />
+    </linearGradient>
+    <linearGradient id="bd-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <linearGradient id="bd-fold-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#5eead4" />
+    </linearGradient>
+    <linearGradient id="bd-fold-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#042f2e" />
+      <stop offset="100%" stop-color="#021c1b" />
+    </linearGradient>
+    <filter id="bd-shadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="1" stdDeviation="0.8" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <style>
+    .bg-plate {
+      fill: #0d6e63;
+      transition: fill 0.2s ease;
+    }
+    .glyph-body {
+      fill: #ffffff;
+    }
+    .glyph-fold {
+      fill: #5eead4;
+    }
+    .glyph-seal {
+      fill: #f59e0b;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .bg-plate {
+        fill: #042f2e;
+      }
+      .glyph-body {
+        fill: #2dd4bf;
+      }
+      .glyph-fold {
+        fill: #99f6e4;
+      }
+      .glyph-seal {
+        fill: #fbbf24;
+      }
+    }
+  </style>
+
+  <!-- Squircle Base for High Tab Visibility across all OS themes -->
+  <rect class="bg-plate" x="1.5" y="1.5" width="29" height="29" rx="7.5" filter="url(#bd-shadow)" />
+
+  <!-- Bengali 'ব' + Document Fold Emblem -->
+  <!-- Document silhouette with top-right fold -->
+  <path class="glyph-body" fill-rule="evenodd" clip-rule="evenodd" d="
+    M 7.5 7
+    C 7.5 6.171 8.171 5.5 9 5.5
+    L 18.5 5.5
+    L 24.5 11.5
+    L 24.5 24.5
+    C 24.5 25.328 23.828 26 23 26
+    L 9 26
+    C 8.171 26 7.5 25.328 7.5 24.5
+    L 7.5 7
+    Z
+    M 10.5 8.5
+    L 10.5 23
+    L 14 23
+    L 19.5 16.5
+    L 14.2 10.5
+    L 17 10.5
+    L 20.8 15.2
+    C 21.3 15.8 21.3 16.7 20.7 17.3
+    L 15.2 23
+    L 21.5 23
+    L 21.5 13
+    L 17 8.5
+    L 10.5 8.5
+    Z
+  " />
+
+  <!-- Corner Origami Fold -->
+  <path class="glyph-fold" d="
+    M 18.5 5.5
+    L 18.5 10
+    C 18.5 10.828 19.172 11.5 20 11.5
+    L 24.5 11.5
+    Z
+  " opacity="0.95" />
+
+  <!-- Verification Notary Dot / Diacritic Anchor -->
+  <circle class="glyph-seal" cx="12.5" cy="12.5" r="1.75" />
+</svg>

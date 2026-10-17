@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64" fill="none">
+  <defs>
+    <linearGradient id="bd-h-grad" x1="8" y1="8" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0e7c70" />
+      <stop offset="60%" stop-color="#0d6e63" />
+      <stop offset="100%" stop-color="#042f2e" />
+    </linearGradient>
+    <linearGradient id="bd-h-fold" x1="36" y1="8" x2="48" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <linearGradient id="bd-h-seal" x1="24" y1="24" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: -0.03em;
+    }
+    .brand-sub {
+      font-family: 'Anek Bangla', 'Hind Siliguri', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 11.5px;
+      fill: #475569;
+      letter-spacing: 0.01em;
+    }
+    .text-bangla { fill: #0f172a; }
+    .text-doc { fill: #0d6e63; }
+    
+    @media (prefers-color-scheme: dark) {
+      .text-bangla { fill: #f8fafc; }
+      .text-doc { fill: #2dd4bf; }
+      .brand-sub { fill: #94a3b8; }
+    }
+  </style>
+
+  <!-- Left Icon Mark (48x48 inside 64h canvas) -->
+  <g transform="translate(4, 8)">
+    <!-- Document Silhouette with 'ব' Structure -->
+    <path fill="url(#bd-h-grad)" fill-rule="evenodd" clip-rule="evenodd" d="
+      M 6 4
+      C 4.343 4 3 5.343 3 7
+      L 3 41
+      C 3 42.657 4.343 44 6 44
+      L 38 44
+      C 39.657 44 41 42.657 41 41
+      L 41 16
+      L 29 4
+      L 6 4
+      Z
+      M 9 9
+      L 26 9
+      L 26 15
+      C 26 16.105 26.895 17 28 17
+      L 36 17
+      L 36 39
+      L 9 39
+      L 9 9
+      Z
+      M 14 14
+      L 23 14
+      L 23 17
+      L 14 17
+      Z
+      M 14 21
+      L 31 21
+      L 31 24
+      L 14 24
+      Z
+      M 14 28
+      L 24 28
+      L 24 31
+      L 14 31
+      Z
+    " />
+    <!-- Fold -->
+    <path fill="url(#bd-h-fold)" d="
+      M 29 4
+      L 29 13
+      C 29 14.657 30.343 16 32 16
+      L 41 16
+      Z
+    " />
+    <!-- Notary Seal -->
+    <circle cx="28.5" cy="29.5" r="3" fill="url(#bd-h-seal)" />
+  </g>
+
+  <!-- Right Typography Wordmark -->
+  <text x="64" y="34" class="brand-title">
+    <tspan class="text-bangla">Bangla</tspan><tspan class="text-doc">Doc</tspan>
+  </text>
+  <text x="64" y="52" class="brand-sub">
+    সহজ আইনি ও প্রশাসনিক কাগজপত্র
+  </text>
+</svg>

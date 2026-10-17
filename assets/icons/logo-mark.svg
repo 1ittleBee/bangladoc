@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Primary Brand Gradient -->
+    <linearGradient id="bd-mark-grad" x1="8" y1="6" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0e7c70" />
+      <stop offset="60%" stop-color="#0d6e63" />
+      <stop offset="100%" stop-color="#042f2e" />
+    </linearGradient>
+
+    <!-- Page Corner Fold Gradient -->
+    <linearGradient id="bd-fold-grad" x1="28" y1="6" x2="38" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+
+    <!-- Notary Seal Accent -->
+    <linearGradient id="bd-seal-grad" x1="16" y1="18" x2="24" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow for tactile paper depth -->
+    <filter id="bd-soft-shadow" x="0" y="2" width="48" height="46" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#042f2e" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Main Document & 'ব' Body -->
+  <g filter="url(#bd-soft-shadow)">
+    <!-- Outer Contour & Inner Counter forming 'ব' + Sheet -->
+    <path fill="url(#bd-mark-grad)" fill-rule="evenodd" clip-rule="evenodd" d="
+      M 11 6
+      C 9.343 6 8 7.343 8 9
+      L 8 39
+      C 8 40.657 9.343 42 11 42
+      L 37 42
+      C 38.657 42 40 40.657 40 39
+      L 40 18
+      L 28 6
+      L 11 6
+      Z
+      M 14 11
+      L 25 11
+      L 25 17
+      C 25 18.105 25.895 19 27 19
+      L 35 19
+      L 35 37
+      L 14 37
+      L 14 11
+      Z
+      M 18 16
+      C 18 15.448 18.448 15 19 15
+      L 27 15
+      C 27.552 15 28 15.448 28 16
+      L 28 18
+      C 28 18.552 27.552 19 27 19
+      L 19 19
+      C 18.448 19 18 18.552 18 18
+      L 18 16
+      Z
+      M 18 23
+      L 31 23
+      L 31 26
+      L 18 26
+      L 18 23
+      Z
+      M 18 29
+      L 27 29
+      L 27 32
+      L 18 32
+      L 18 29
+      Z
+    " />
+
+    <!-- Corner Origami Fold Piece -->
+    <path fill="url(#bd-fold-grad)" d="
+      M 28 6
+      L 28 15
+      C 28 16.657 29.343 18 31 18
+      L 40 18
+      Z
+    " />
+
+    <!-- Inner 'ব' Geometric Diacritic Seal -->
+    <circle cx="31.5" cy="30.5" r="3" fill="url(#bd-seal-grad)" />
+  </g>
+</svg>
