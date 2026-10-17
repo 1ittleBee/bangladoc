@@ -105,6 +105,35 @@ describe('PdfEditorCore - Tool & Annotation Management', () => {
     assert.equal(editor.selectedAnnotationId, null);
   });
 
+  it('deletes companion ghost whiteout annotation when targetTextId annotation is deleted', () => {
+    editor.addAnnotation({
+      id: 'ghost_whiteout_1',
+      type: 'whiteout',
+      targetTextId: 'text_0_1',
+      x: 50,
+      y: 100,
+      width: 200,
+      height: 20
+    });
+
+    const textAnn = editor.addAnnotation({
+      id: 'ghost_text_1',
+      type: 'text',
+      targetTextId: 'text_0_1',
+      x: 50,
+      y: 100,
+      width: 200,
+      height: 20,
+      text: 'Replacement Text'
+    });
+
+    assert.equal(editor.getCurrentPage().annotations.length, 2);
+
+    const deleted = editor.deleteAnnotation(textAnn.id);
+    assert.equal(deleted, true);
+    assert.equal(editor.getCurrentPage().annotations.length, 0);
+  });
+
   it('adds official Bangladeshi stamp preset correctly', () => {
     const preset = STAMP_PRESETS.APPROVED;
     assert.ok(preset, 'APPROVED preset must exist');

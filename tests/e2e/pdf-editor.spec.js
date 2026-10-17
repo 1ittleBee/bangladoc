@@ -171,4 +171,54 @@ test.describe('BanglaDoc PDF Editor & Signer E2E Studio Flow', () => {
       }
     }
   });
+
+  test('enables in-place direct editing of existing text items in uploaded PDF', async ({ page }) => {
+    const { PDFDocument, rgb } = require('pdf-lib');
+    const fs = require('fs');
+    const path = require('path');
+
+    const pdfDoc = await PDFDocument.create();
+    const p = pdfDoc.addPage([595.28, 841.89]);
+    p.drawText('Original Agreement Clause 1', { x: 50, y: 750, size: 18, color: rgb(0.1, 0.1, 0.1) });
+    const pdfBytes = await pdfDoc.save();
+    const tempFile = path.resolve(__dirname, 'e2e_direct_edit_test.pdf');
+    fs.writeFileSync(tempFile, pdfBytes);
+
+    try {
+      await page.goto('/pdf-editor.html', { waitUntil: 'domcontentloaded' });
+      const fileInput = page.locator('#pdfFileInput');
+      await fileInput.setInputFiles(tempFile);
+
+      await expect(page.locator('#workspaceScreen')).toBeVisible();
+
+      // Verify interactive text items are generated
+      const textItem = page.locator('.pdf-text-item').first();
+      await expect(textItem).toBeAttached();
+
+      // Click the text item to convert into in-place editable text
+      await textItem.click();
+
+      // Verify editable content box appears with original text
+      const editableContent = page.locator('.ann-content.ann-text[contenteditable="true"]').first();
+      await expect(editableContent).toBeVisible();
+
+      // Type updated text
+      await editableContent.evaluate(el => {
+        el.innerText = 'সংশোধিত দ্বিতীয় পক্ষের চুক্তিপত্র';
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+
+      // Verify state has both whiteout and updated text
+      const annotations = await page.evaluate(() => {
+        const page = window.pdfEditorInstance.core.getCurrentPage();
+        return page.annotations;
+      });
+      expect(annotations.some(a => a.type === 'whiteout')).toBe(true);
+      expect(annotations.some(a => a.type === 'text' && a.text.includes('সংশোধিত'))).toBe(true);
+    } finally {
+      if (fs.existsSync(tempFile)) {
+        fs.unlinkSync(tempFile);
+      }
+    }
+  });
 });

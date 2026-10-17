@@ -412,7 +412,17 @@
       const idx = page.annotations.findIndex(a => a.id === id);
       if (idx !== -1) {
         this.recordHistorySnapshot();
+        const targetAnn = page.annotations[idx];
         page.annotations.splice(idx, 1);
+
+        // If this was an in-place ghost edit, also clean up its companion whiteout
+        if (targetAnn && targetAnn.targetTextId) {
+          const companionIdx = page.annotations.findIndex(a => a.targetTextId === targetAnn.targetTextId);
+          if (companionIdx !== -1) {
+            page.annotations.splice(companionIdx, 1);
+          }
+        }
+
         if (this.selectedAnnotationId === id) {
           this.selectedAnnotationId = null;
         }
@@ -685,6 +695,7 @@
       this.viewport = document.getElementById('pdfViewport');
       this.canvasWrapper = document.getElementById('canvasWrapper');
       this.baseCanvas = document.getElementById('pdfBaseCanvas');
+      this.interactiveTextLayer = document.getElementById('interactiveTextLayer');
       this.drawingCanvas = document.getElementById('drawingCanvas');
       this.annotationOverlay = document.getElementById('annotationOverlay');
       this.thumbnailList = document.getElementById('thumbnailList');
@@ -1251,6 +1262,15 @@
         }
       }
 
+      // Interactive live text layer pointer-events handling
+      if (this.interactiveTextLayer) {
+        if (tool === 'select' || tool === 'text') {
+          this.interactiveTextLayer.style.pointerEvents = 'auto';
+        } else {
+          this.interactiveTextLayer.style.pointerEvents = 'none';
+        }
+      }
+
       // Special Immediate Actions for Signature, Date, and Image tools
       if (tool === 'signature') {
         if (this.signatureModal) {
@@ -1395,6 +1415,143 @@
         pageState.annotations.forEach(ann => {
           this.renderAnnotationElement(ann, displayWidth, displayHeight);
         });
+      }
+
+      // 4. Render Interactive Text Layer (Ghost Replacement Engine)
+      await this.renderInteractiveTextLayer(pageState, displayWidth, displayHeight);
+    }
+
+    async renderInteractiveTextLayer(pageState, displayWidth, displayHeight) {
+      if (!this.interactiveTextLayer) return;
+      this.interactiveTextLayer.style.width = displayWidth + 'px';
+      this.interactiveTextLayer.style.height = displayHeight + 'px';
+      this.interactiveTextLayer.innerHTML = '';
+
+      if (!this.pdfJsDoc || pageState.pageIndex >= this.pdfJsDoc.numPages) return;
+
+      try {
+        const page = await this.pdfJsDoc.getPage(pageState.pageIndex + 1);
+        const textContent = await page.getTextContent();
+        const scale = this.zoom || 1;
+        const viewport = page.getViewport({ scale, rotation: pageState.rotation || 0 });
+
+        textContent.items.forEach((item, itemIdx) => {
+          if (!item.str || !item.str.trim()) return;
+
+          const tx = item.transform; // [scaleX, skewY, skewX, scaleY, transX, transY]
+          const pdfX = tx[4];
+          const pdfY = tx[5];
+          const fontSize = Math.hypot(tx[0], tx[1]);
+
+          // Convert baseline point to viewport coordinates
+          const [vx, vy] = viewport.convertToViewportPoint(pdfX, pdfY);
+          const vWidth = Math.max(12, item.width * scale);
+          const vHeight = Math.max(14, (item.height || fontSize) * scale);
+          const left = vx;
+          const top = vy - vHeight;
+
+          // Compute unscaled PDF points
+          const unscaledX = left / scale;
+          const unscaledY = top / scale;
+          const unscaledW = vWidth / scale;
+          const unscaledH = vHeight / scale;
+
+          // Check if this text is already covered by an edited annotation on this page
+          const textId = `text_${pageState.pageIndex}_${itemIdx}`;
+          const isAlreadyEdited = pageState.annotations.some(ann => 
+            ann.targetTextId === textId ||
+            (ann.type === 'whiteout' && Math.abs(ann.x - unscaledX) < 6 && Math.abs(ann.y - unscaledY) < 6)
+          );
+          if (isAlreadyEdited) return;
+
+          const span = document.createElement('span');
+          span.className = 'pdf-text-item';
+          span.dataset.textId = textId;
+          span.title = 'ক্লিক করে এই লেখাটি সরাসরি পরিবর্তন করুন';
+          span.style.left = left + 'px';
+          span.style.top = top + 'px';
+          span.style.width = vWidth + 'px';
+          span.style.height = vHeight + 'px';
+          span.style.fontSize = Math.round(fontSize * scale) + 'px';
+          span.style.lineHeight = vHeight + 'px';
+          span.innerText = item.str;
+
+          span.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.convertPdfTextToEditable(
+              item,
+              textId,
+              unscaledX,
+              unscaledY,
+              unscaledW,
+              unscaledH,
+              fontSize
+            );
+          });
+
+          this.interactiveTextLayer.appendChild(span);
+        });
+      } catch (err) {
+        console.warn('Interactive text layer rendering error:', err);
+      }
+    }
+
+    convertPdfTextToEditable(item, textId, unscaledX, unscaledY, unscaledW, unscaledH, fontSize) {
+      const page = this.core.getCurrentPage();
+      if (!page) return;
+
+      this.core.recordHistorySnapshot();
+
+      // 1. Create seamless whiteout patch over existing text
+      const whiteoutId = 'ghost_whiteout_' + Date.now();
+      page.annotations.push({
+        id: whiteoutId,
+        type: 'whiteout',
+        targetTextId: textId,
+        x: Math.max(0, unscaledX - 2),
+        y: Math.max(0, unscaledY - 2),
+        width: unscaledW + 4,
+        height: unscaledH + 4,
+        color: '#ffffff'
+      });
+
+      // 2. Create in-place live editable text annotation
+      const textIdAnn = 'ghost_text_' + Date.now();
+      const newAnn = {
+        id: textIdAnn,
+        type: 'text',
+        targetTextId: textId,
+        x: unscaledX,
+        y: unscaledY,
+        width: Math.max(unscaledW + 30, 80),
+        height: Math.max(unscaledH + 6, 30),
+        text: item.str,
+        fontSize: Math.max(12, Math.round(fontSize)),
+        color: '#0f172a',
+        bold: false,
+        font: 'Anek Bangla, Hind Siliguri, sans-serif'
+      };
+      page.annotations.push(newAnn);
+      this.core.selectedAnnotationId = textIdAnn;
+
+      // 3. Re-render page
+      this.renderCurrentPage();
+
+      // 4. Focus the newly created editable element
+      setTimeout(() => {
+        const annEl = this.annotationOverlay.querySelector(`[data-id="${textIdAnn}"] .ann-text`);
+        if (annEl) {
+          annEl.focus();
+          const range = document.createRange();
+          range.selectNodeContents(annEl);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      }, 60);
+
+      if (window.showToast) {
+        window.showToast('লেখাটি পরিবর্তনের জন্য প্রস্তুত — সরাসরি টাইপ করুন');
       }
     }
 
