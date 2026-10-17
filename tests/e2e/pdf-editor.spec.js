@@ -89,12 +89,86 @@ test.describe('BanglaDoc PDF Editor & Signer E2E Studio Flow', () => {
     await expect(page.locator('#pageIndicator')).toContainText('1 / 1');
 
     // Add new page
-    await page.locator('#btnAddPage').click({ force: true });
+    const addPageBtn = page.locator('#btnAddPage');
+    await addPageBtn.scrollIntoViewIfNeeded();
+    await addPageBtn.click();
     await expect(page.locator('#pageIndicator')).toContainText('2 / 2');
 
     // Export button is ready
     const exportBtn = page.locator('#btnExportPdf');
     await expect(exportBtn).toBeVisible();
     await expect(exportBtn).toContainText('PDF ডাউনলোড');
+  });
+
+  test('uploads an external multi-page PDF document and renders visible canvas and thumbnail previews', async ({ page }) => {
+    const { PDFDocument, rgb } = require('pdf-lib');
+    const fs = require('fs');
+    const path = require('path');
+
+    const pdfDoc = await PDFDocument.create();
+    for (let i = 1; i <= 3; i++) {
+      const p = pdfDoc.addPage([595.28, 841.89]);
+      p.drawText(`E2E Test Page ${i}`, { x: 50, y: 800, size: 20, color: rgb(0.1, 0.1, 0.1) });
+    }
+    const pdfBytes = await pdfDoc.save();
+    const tempFile = path.resolve(__dirname, 'e2e_temp_upload.pdf');
+    fs.writeFileSync(tempFile, pdfBytes);
+
+    try {
+      await page.goto('/pdf-editor.html', { waitUntil: 'domcontentloaded' });
+
+      // Upload file
+      const fileInput = page.locator('#pdfFileInput');
+      await fileInput.setInputFiles(tempFile);
+
+      // Verify workspace opens
+      const workspace = page.locator('#workspaceScreen');
+      await expect(workspace).toBeVisible();
+
+      // Check title and page counter
+      await expect(page.locator('#docTitleLabel')).toContainText('e2e_temp_upload.pdf');
+      await expect(page.locator('#pageIndicator')).toContainText('1 / 3');
+
+      // Verify canvas wrapper is visible and positioned in the viewport
+      const canvasWrapper = page.locator('#canvasWrapper');
+      await expect(canvasWrapper).toBeVisible();
+
+      const wrapperBox = await canvasWrapper.boundingBox();
+      expect(wrapperBox).not.toBeNull();
+      if (wrapperBox) {
+        expect(wrapperBox.width).toBeGreaterThan(300);
+        expect(wrapperBox.height).toBeGreaterThan(400);
+        expect(wrapperBox.y).toBeLessThan(400);
+      }
+
+      // Verify thumbnails are rendered with thumbnail canvas
+      const thumbCards = page.locator('.thumb-card');
+      await expect(thumbCards).toHaveCount(3);
+      const firstThumbCanvas = thumbCards.first().locator('canvas');
+      const isMobile = (page.viewportSize()?.width || 1280) <= 768;
+      if (isMobile) {
+        await expect(firstThumbCanvas).toBeAttached();
+      } else {
+        await expect(firstThumbCanvas).toBeVisible();
+      }
+
+      // Navigate to next page and check indicator
+      const nextBtn = page.locator('#btnNextPage');
+      await nextBtn.scrollIntoViewIfNeeded();
+      await nextBtn.click();
+      await expect(page.locator('#pageIndicator')).toContainText('2 / 3');
+
+      // Check that buffer was not detached
+      const isDetached = await page.evaluate(() => {
+        return window.pdfEditorInstance && window.pdfEditorInstance.core.originalPdfBytes
+          ? window.pdfEditorInstance.core.originalPdfBytes.byteLength === 0
+          : false;
+      });
+      expect(isDetached).toBe(false);
+    } finally {
+      if (fs.existsSync(tempFile)) {
+        fs.unlinkSync(tempFile);
+      }
+    }
   });
 });

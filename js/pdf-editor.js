@@ -253,23 +253,47 @@
      * Loads PDF bytes into state
      */
     async loadPdfBytes(bytes, fileName = 'document.pdf') {
-      this.originalPdfBytes = new Uint8Array(bytes);
+      const arrayBuffer = (bytes instanceof ArrayBuffer)
+        ? bytes
+        : (bytes && bytes.buffer instanceof ArrayBuffer ? bytes.buffer : null);
+
+      this.originalPdfBytes = arrayBuffer
+        ? new Uint8Array(arrayBuffer.slice(0))
+        : new Uint8Array(bytes);
       this.fileName = fileName;
       this.pages = [];
 
       const lib = getPDFLib();
       if (lib) {
         try {
-          const doc = await lib.PDFDocument.load(this.originalPdfBytes, { ignoreEncryption: true });
+          // Pass isolated clone to PDFDocument.load
+          const loadBuffer = new Uint8Array(this.originalPdfBytes.buffer.slice(
+            this.originalPdfBytes.byteOffset,
+            this.originalPdfBytes.byteOffset + this.originalPdfBytes.byteLength
+          ));
+          const doc = await lib.PDFDocument.load(loadBuffer, { ignoreEncryption: true });
           const count = doc.getPageCount();
           for (let i = 0; i < count; i++) {
             const page = doc.getPage(i);
-            const size = page.getSize();
+            let width = 595.28;
+            let height = 841.89;
+            try {
+              const size = page.getSize();
+              if (size && Number.isFinite(size.width) && size.width > 0) width = size.width;
+              if (size && Number.isFinite(size.height) && size.height > 0) height = size.height;
+            } catch (_) {}
+
+            let rotation = 0;
+            try {
+              const rot = page.getRotation();
+              if (rot && Number.isFinite(rot.angle)) rotation = rot.angle;
+            } catch (_) {}
+
             this.pages.push({
               pageIndex: i,
-              rotation: page.getRotation().angle || 0,
-              width: size.width,
-              height: size.height,
+              rotation,
+              width,
+              height,
               annotations: [],
               drawings: []
             });
@@ -763,6 +787,9 @@
       if (this.btnNewDoc) {
         this.btnNewDoc.addEventListener('click', () => {
           if (confirm('আপনি কি নতুন ডকুমেন্ট শুরু করতে চান? বর্তমান এডিট মুছে যাবে।')) {
+            if (typeof document !== 'undefined') {
+              document.body.classList.remove('pdf-studio-mode');
+            }
             this.welcomeScreen.style.display = 'block';
             this.workspaceScreen.style.display = 'none';
             if (this.fileInput) this.fileInput.value = '';
@@ -849,6 +876,8 @@
           if (this.core.currentPageIndex > 0) {
             this.core.goToPage(this.core.currentPageIndex - 1);
             this.renderCurrentPage();
+            this.updateActiveThumbnail();
+            if (this.pdfViewport) this.pdfViewport.scrollTop = 0;
           }
         });
       }
@@ -858,6 +887,8 @@
           if (this.core.currentPageIndex < this.core.getPageCount() - 1) {
             this.core.goToPage(this.core.currentPageIndex + 1);
             this.renderCurrentPage();
+            this.updateActiveThumbnail();
+            if (this.pdfViewport) this.pdfViewport.scrollTop = 0;
           }
         });
       }
@@ -1138,8 +1169,13 @@
     async initializePdfJsFromBytes() {
       if (typeof window !== 'undefined' && window.pdfjsLib && this.core.originalPdfBytes) {
         try {
+          // Clone buffer so PDF.js Web Worker postMessage cannot detach core.originalPdfBytes
+          const cloneBytes = new Uint8Array(this.core.originalPdfBytes.buffer.slice(
+            this.core.originalPdfBytes.byteOffset,
+            this.core.originalPdfBytes.byteOffset + this.core.originalPdfBytes.byteLength
+          ));
           this.pdfJsDoc = await window.pdfjsLib.getDocument({
-            data: this.core.originalPdfBytes
+            data: cloneBytes
           }).promise;
         } catch (e) {
           console.warn('PDF.js loading fallback:', e);
@@ -1149,6 +1185,9 @@
     }
 
     showWorkspace() {
+      if (typeof document !== 'undefined') {
+        document.body.classList.add('pdf-studio-mode');
+      }
       if (this.welcomeScreen) this.welcomeScreen.style.display = 'none';
       if (this.workspaceScreen) this.workspaceScreen.style.display = 'flex';
       if (this.docTitleLabel) this.docTitleLabel.innerText = this.core.fileName;
@@ -1157,6 +1196,21 @@
       this.selectTool('select');
       this.renderCurrentPage();
       this.renderThumbnails();
+      if (this.pdfViewport) {
+        this.pdfViewport.scrollTop = 0;
+      }
+    }
+
+    updateActiveThumbnail() {
+      if (!this.thumbnailList) return;
+      const cards = this.thumbnailList.querySelectorAll('.thumb-card');
+      cards.forEach((c, idx) => {
+        c.classList.toggle('active', idx === this.core.currentPageIndex);
+      });
+      const activeCard = this.thumbnailList.querySelector('.thumb-card.active');
+      if (activeCard && typeof activeCard.scrollIntoView === 'function') {
+        activeCard.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
     }
 
     updateZoomDisplay() {
@@ -1263,22 +1317,34 @@
         this.pageIndicator.innerText = `${this.core.currentPageIndex + 1} / ${this.core.getPageCount()}`;
       }
 
+      // Cancel any ongoing PDF.js render operation
+      if (this.currentRenderTask) {
+        try {
+          this.currentRenderTask.cancel();
+        } catch (_) {}
+        this.currentRenderTask = null;
+      }
+
       // Compute display dimensions based on zoom & standard A4
-      const pageWidth = pageState.width || 595.28;
-      const pageHeight = pageState.height || 841.89;
-      const isLandscape = (pageState.rotation === 90 || pageState.rotation === 270);
-      const displayWidth = Math.round((isLandscape ? pageHeight : pageWidth) * this.zoom);
-      const displayHeight = Math.round((isLandscape ? pageWidth : pageHeight) * this.zoom);
+      const pageWidth = (pageState && Number.isFinite(pageState.width) && pageState.width > 0) ? pageState.width : 595.28;
+      const pageHeight = (pageState && Number.isFinite(pageState.height) && pageState.height > 0) ? pageState.height : 841.89;
+      const rotation = pageState.rotation || 0;
+      const isLandscape = (rotation === 90 || rotation === 270);
+      const zoom = (Number.isFinite(this.zoom) && this.zoom > 0) ? this.zoom : 1.0;
+      const displayWidth = Math.max(200, Math.round((isLandscape ? pageHeight : pageWidth) * zoom));
+      const displayHeight = Math.max(200, Math.round((isLandscape ? pageWidth : pageHeight) * zoom));
 
       if (this.canvasWrapper) {
         this.canvasWrapper.style.width = displayWidth + 'px';
         this.canvasWrapper.style.height = displayHeight + 'px';
+        this.canvasWrapper.style.margin = '0 auto';
       }
 
       // 1. Render Base PDF Page Canvas
       if (this.baseCanvas) {
-        this.baseCanvas.width = displayWidth * (window.devicePixelRatio || 1);
-        this.baseCanvas.height = displayHeight * (window.devicePixelRatio || 1);
+        const dpr = window.devicePixelRatio || 1;
+        this.baseCanvas.width = displayWidth * dpr;
+        this.baseCanvas.height = displayHeight * dpr;
         this.baseCanvas.style.width = displayWidth + 'px';
         this.baseCanvas.style.height = displayHeight + 'px';
 
@@ -1292,15 +1358,19 @@
             try {
               const page = await this.pdfJsDoc.getPage(pageState.pageIndex + 1);
               const viewport = page.getViewport({
-                scale: this.zoom * (window.devicePixelRatio || 1),
-                rotation: pageState.rotation
+                scale: zoom * dpr,
+                rotation
               });
-              await page.render({
+              this.currentRenderTask = page.render({
                 canvasContext: ctx,
                 viewport
-              }).promise;
+              });
+              await this.currentRenderTask.promise;
+              this.currentRenderTask = null;
             } catch (err) {
-              console.warn('PDF.js render error:', err);
+              if (err && err.name !== 'RenderingCancelledException') {
+                console.warn('PDF.js render error:', err);
+              }
             }
           }
           ctx.restore();
@@ -1630,6 +1700,7 @@
       this.core.pages.forEach((page, idx) => {
         const item = document.createElement('div');
         item.className = 'thumb-card' + (idx === this.core.currentPageIndex ? ' active' : '');
+        item.setAttribute('data-page-index', idx);
         item.innerHTML = `
           <div class="thumb-num">${idx + 1}</div>
           <div class="thumb-preview"></div>
@@ -1651,11 +1722,64 @@
           }
           this.core.goToPage(idx);
           this.renderCurrentPage();
-          this.renderThumbnails();
+          this.updateActiveThumbnail();
+          if (this.pdfViewport) this.pdfViewport.scrollTop = 0;
         });
 
         this.thumbnailList.appendChild(item);
+
+        const previewContainer = item.querySelector('.thumb-preview');
+        this.renderThumbnailCanvas(idx, previewContainer);
       });
+    }
+
+    async renderThumbnailCanvas(pageIdx, container) {
+      if (!container) return;
+      const canvas = document.createElement('canvas');
+      canvas.className = 'thumb-canvas';
+      container.appendChild(canvas);
+
+      if (this.pdfJsDoc && pageIdx < this.pdfJsDoc.numPages) {
+        try {
+          const page = await this.pdfJsDoc.getPage(pageIdx + 1);
+          const baseViewport = page.getViewport({ scale: 1.0 });
+          const targetWidth = 120;
+          const scale = targetWidth / (baseViewport.width || 595.28);
+          const viewport = page.getViewport({ scale });
+
+          canvas.width = Math.round(viewport.width);
+          canvas.height = Math.round(viewport.height);
+
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            await page.render({
+              canvasContext: ctx,
+              viewport
+            }).promise;
+          }
+          return;
+        } catch (err) {
+          // Fall through to fallback
+        }
+      }
+
+      // Fallback preview
+      canvas.width = 120;
+      canvas.height = 170;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, 120, 170);
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.strokeRect(2, 2, 116, 166);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '12px "Anek Bangla", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`পৃষ্ঠা ${pageIdx + 1}`, 60, 88);
+      }
     }
 
     async exportAndDownload() {

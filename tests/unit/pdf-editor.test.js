@@ -42,6 +42,26 @@ describe('PdfEditorCore - Initialization & Blank Document', () => {
     assert.equal(page.annotations[0].type, 'text');
     assert.equal(page.annotations[1].type, 'stamp');
   });
+
+  it('loads external PDF bytes, isolates buffer, and retains page geometry', async () => {
+    const { PDFDocument } = require('pdf-lib');
+    const doc = await PDFDocument.create();
+    doc.addPage([500, 700]);
+    doc.addPage([600, 800]);
+    const pdfBytes = await doc.save();
+
+    await editor.loadPdfBytes(pdfBytes.buffer, 'sample.pdf');
+    assert.equal(editor.fileName, 'sample.pdf');
+    assert.equal(editor.getPageCount(), 2);
+    assert.equal(editor.pages[0].width, 500);
+    assert.equal(editor.pages[0].height, 700);
+    assert.equal(editor.pages[1].width, 600);
+    assert.equal(editor.pages[1].height, 800);
+    assert.ok(editor.originalPdfBytes.byteLength > 0);
+
+    const exportResult = await editor.exportPdf();
+    assert.ok(exportResult.bytes.byteLength > 0);
+  });
 });
 
 describe('PdfEditorCore - Tool & Annotation Management', () => {

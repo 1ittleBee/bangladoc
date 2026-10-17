@@ -1554,10 +1554,22 @@ label {
 }
 
 /* Workspace Studio Layout */
+body.pdf-studio-mode {
+  overflow: hidden !important;
+}
+
+body.pdf-studio-mode .seo-guide-section,
+body.pdf-studio-mode .site-footer,
+body.pdf-studio-mode .footer {
+  display: none !important;
+}
+
 .pdf-workspace {
   display: none;
   flex-direction: column;
-  min-height: calc(100vh - 72px);
+  height: calc(100vh - 72px);
+  max-height: calc(100vh - 72px);
+  overflow: hidden;
   background: var(--bg-app);
 }
 
@@ -1744,17 +1756,23 @@ label {
 .pdf-editor-body {
   display: flex;
   flex: 1;
+  min-height: 0;
+  height: calc(100vh - 170px);
+  max-height: calc(100vh - 170px);
   overflow: hidden;
   position: relative;
-  height: calc(100vh - 170px);
 }
 
 /* Thumbnails Sidebar */
 .pdf-thumbnails-sidebar {
   width: 170px;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
   background: var(--bg-surface);
   border-right: 1px solid var(--border-hairline);
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 1rem 0.5rem;
   display: flex;
   flex-direction: column;
@@ -1767,7 +1785,7 @@ label {
   background: #ffffff;
   border: 2px solid var(--border-hairline);
   border-radius: var(--radius-sm);
-  padding: 8px;
+  padding: 6px;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: all var(--duration-fast) ease;
@@ -1776,6 +1794,29 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 140px;
+  overflow: hidden;
+}
+
+.thumb-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #f8fafc;
+}
+
+.thumb-preview canvas,
+.thumb-canvas {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  display: block;
+  border-radius: 2px;
 }
 
 .thumb-card:hover {
@@ -1795,9 +1836,11 @@ label {
   font-size: 0.75rem;
   font-weight: 800;
   color: #0f172a;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   padding: 1px 6px;
   border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  z-index: 5;
 }
 
 .thumb-del-btn {
@@ -1815,6 +1858,7 @@ label {
   display: none;
   align-items: center;
   justify-content: center;
+  z-index: 5;
 }
 
 .thumb-card:hover .thumb-del-btn {
@@ -1824,12 +1868,16 @@ label {
 /* Main Viewport & Canvas Wrapper */
 .pdf-canvas-viewport {
   flex: 1;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
   overflow: auto;
   padding: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   background: var(--bg-subtle);
+  scroll-behavior: smooth;
 }
 
 .canvas-wrapper {
@@ -1838,7 +1886,10 @@ label {
   box-shadow: var(--paper-shadow);
   border-radius: 2px;
   user-select: none;
-  margin: auto;
+  margin: 0 auto;
+  flex-shrink: 0;
+  min-width: 200px;
+  min-height: 280px;
 }
 
 #pdfBaseCanvas {
