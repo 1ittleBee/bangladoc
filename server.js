@@ -19,8 +19,12 @@ const server = http.createServer((req, res) => {
   let reqPath = req.url.split('?')[0];
   if (reqPath === '/') reqPath = '/index.html';
   
-  const filePath = path.join(__dirname, reqPath);
-  const ext = path.extname(filePath);
+  let filePath = path.join(__dirname, reqPath);
+  let ext = path.extname(filePath);
+  if (!ext && fs.existsSync(filePath + '.html')) {
+    filePath += '.html';
+    ext = '.html';
+  }
   const contentType = MIME_TYPES[ext] || 'text/plain';
 
   fs.readFile(filePath, (err, content) => {
