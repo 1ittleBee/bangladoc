@@ -11,6 +11,40 @@ on:
       - main
 
 jobs:
+  enforce-tests-in-pr:
+    name: Verify Tests Changed with Code
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Repository with History
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enforce Test Updates for Source Code Changes
+        run: |
+          echo "Comparing changes against base branch: origin/${{ github.base_ref }}"
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "Changed files in PR:"
+          echo "$CHANGED_FILES"
+
+          # Detect source changes (JS utilities, HTML templates, CSS styles)
+          SOURCE_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^js/|^\w.*\.html$|^css/' || true)
+          # Detect test changes
+          TEST_CHANGES=$(echo "$CHANGED_FILES" | grep -E '^tests/' || true)
+
+          if [ -n "$SOURCE_CHANGES" ] && [ -z "$TEST_CHANGES" ]; then
+            echo "::error::Source files were modified in this PR, but NO files in 'tests/' were added or updated!"
+            echo "Modified source files:"
+            echo "$SOURCE_CHANGES"
+            echo "Please add or update corresponding tests in 'tests/' to keep tests in sync."
+            exit 1
+          fi
+
+          echo "✅ PR Test Policy passed: Matching tests were added/updated."
+
   test-and-verify:
     name: Test & QA Verification
     runs-on: ubuntu-latest
