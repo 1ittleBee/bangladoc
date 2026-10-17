@@ -249,6 +249,9 @@
             <span>লাইভ দলিল প্রিভিউ (A4 ফরম্যাট)</span>
           </div>
           <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="BanglaDoc.shareViaWhatsApp('টাকা ধারের অঙ্গীকারনামা')" title="হোয়াটসঅ্যাপে শেয়ার করুন">
+              💬 শেয়ার
+            </button>
             <button type="button" class="btn btn-secondary" onclick="exportAsWordDoc()" title="Word ফাইলে সেভ করুন">
               📝 Word
             </button>
@@ -343,6 +346,32 @@
           </div>
 
         </article>
+
+        <!-- Legal Stamp Duty Guidance Card -->
+        <div class="legal-guidance-card">
+          <div class="guidance-header">
+            <span class="guidance-badge">আইনি বিধান</span>
+            <h3 class="guidance-title">টাকা ধার অঙ্গীকারনামা প্রিন্ট ও প্রামাণিক নিয়ম</h3>
+          </div>
+          <ul class="guidance-list">
+            <li class="guidance-item">
+              <span class="guidance-num">১</span>
+              <div><strong>স্ট্যাম্প পেপার:</strong> বড় অঙ্কের ঋণ বা টাকা লেনদেনে সরকার নির্ধারিত ৩০০ টাকার নন-জুডিশিয়াল স্ট্যাম্পে প্রিন্ট করা দেওয়ানি ও ফৌজদারি আদালতে সর্বাধিক শক্তিশালী আইনি প্রমাণ।</div>
+            </li>
+            <li class="guidance-item">
+              <span class="guidance-num">২</span>
+              <div><strong>স্বাক্ষর ও চেক:</strong> ঋণগ্রহীতার জাতীয় পরিচয়পত্র (NID)-এর স্বাক্ষর মিলিয়ে স্বাক্ষর নিন এবং নিরাপত্তার স্বার্থে সমপরিমাণ টাকার একটি তারিখবিহীন সিকিউরিটি চেক গ্রহণ করতে পারেন।</div>
+            </li>
+            <li class="guidance-item">
+              <span class="guidance-num">৩</span>
+              <div><strong>সাক্ষীগণ:</strong> টাকা প্রদানের সময় উপস্থিত অন্তত ২ জন প্রাপ্তবয়স্ক নিরপেক্ষ ব্যক্তির নাম, বর্তমান ঠিকানা ও NID সহ পূর্ণ স্বাক্ষর গ্রহণ করুন।</div>
+            </li>
+            <li class="guidance-item">
+              <span class="guidance-num">৪</span>
+              <div><strong>নোটারি সত্যায়ন:</strong> ভবিষ্যতের যেকোনো অস্বীকৃতি রোধে দলিলটি নিকটস্থ নোটারি পাবলিক (Notary Public) দ্বারা সত্যায়িত করিয়ে নেওয়া সর্বোচ্চ নিরাপদ।</div>
+            </li>
+          </ul>
+        </div>
       </section>
 
     </div>
@@ -489,17 +518,31 @@
       const preview = document.getElementById('previewPanel');
       const tabForm = document.getElementById('tabFormBtn');
       const tabPreview = document.getElementById('tabPreviewBtn');
+      const dockBtn = document.getElementById('dockToggleBtn');
 
       if (view === 'form') {
         form.style.display = 'block';
         preview.style.display = 'none';
         tabForm.classList.add('active');
         tabPreview.classList.remove('active');
+        if (dockBtn) dockBtn.innerHTML = '📄 দলিল দেখুন';
+        window.scrollTo({ top: 160, behavior: 'smooth' });
       } else {
         form.style.display = 'none';
         preview.style.display = 'block';
         tabPreview.classList.add('active');
         tabForm.classList.remove('active');
+        if (dockBtn) dockBtn.innerHTML = '✏️ তথ্য এডিট';
+        window.scrollTo({ top: 160, behavior: 'smooth' });
+      }
+    }
+
+    function toggleMobileDockView() {
+      const preview = document.getElementById('previewPanel');
+      if (preview && window.getComputedStyle(preview).display === 'block') {
+        switchMobileView('form');
+      } else {
+        switchMobileView('preview');
       }
     }
 
@@ -520,6 +563,36 @@
       URL.revokeObjectURL(url);
       showToast('MS Word (.doc) ফাইল ডাউনলোড শুরু হয়েছে!');
     }
+
+    // Initialize AutoDraft Persistence
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.BanglaDoc && window.BanglaDoc.initAutoDraft) {
+        window.BanglaDoc.initAutoDraft('loanForm', 'bangladoc_draft_loan', function () {
+          // Trigger inputs to refresh documentSheet
+          document.querySelectorAll('#loanForm input, #loanForm select').forEach(inp => {
+            inp.dispatchEvent(new Event('input'));
+          });
+        });
+      }
+    });
   </script>
+
+  <!-- Floating Mobile Action Dock -->
+  <div class="mobile-action-dock" id="mobileActionDock">
+    <div class="dock-status">
+      <span class="dock-pulse-dot" id="dockPulseDot"></span>
+      <span id="dockStatusLabel">খসড়া সুরক্ষিত ✓</span>
+    </div>
+    <div class="dock-buttons">
+      <button type="button" class="dock-btn dock-btn-preview" id="dockToggleBtn" onclick="toggleMobileDockView()">
+        📄 দলিল দেখুন
+      </button>
+      <button type="button" class="dock-btn dock-btn-print" onclick="window.print()">
+        🖨️ প্রিন্ট / PDF
+      </button>
+    </div>
+  </div>
+
+  <script src="js/autodraft.js"></script>
 </body>
 </html>

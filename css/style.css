@@ -1109,3 +1109,256 @@ label {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Mobile Sticky Action Dock (Phone Viewport UX Upgrade)
+   ========================================================================== */
+.mobile-action-dock {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding-bottom: 74px; /* Ensure content is never obscured by sticky dock */
+  }
+
+  .mobile-action-dock {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-subtle);
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  [data-theme="dark"] .mobile-action-dock {
+    background: rgba(17, 24, 39, 0.94);
+    border-top-color: var(--border-subtle);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .dock-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .dock-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10b981;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulse-green 2s infinite;
+  }
+
+  .dock-pulse-dot.saving {
+    background-color: #f59e0b;
+    animation: pulse-orange 1s infinite;
+  }
+
+  .dock-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dock-btn {
+    padding: 8px 14px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-bangla);
+    text-decoration: none;
+  }
+
+  .dock-btn-preview {
+    background: var(--bg-surface);
+    color: var(--primary-500);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .dock-btn-print {
+    background: linear-gradient(135deg, var(--primary-500), #042f2e);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(13, 110, 99, 0.3);
+  }
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes pulse-orange {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+/* ==========================================================================
+   Draft Alert Banner (Restored LocalStorage Draft)
+   ========================================================================== */
+.draft-alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--primary-700);
+  gap: 12px;
+}
+
+[data-theme="dark"] .draft-alert-banner {
+  background: rgba(13, 110, 99, 0.15);
+  border-color: rgba(45, 212, 191, 0.3);
+  color: #2dd4bf;
+}
+
+.draft-alert-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.btn-draft-reset {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-bangla);
+  transition: all 0.2s ease;
+}
+
+.btn-draft-reset:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   Legal Stamp Duty & Next Steps Guidance Card
+   ========================================================================== */
+.legal-guidance-card {
+  margin-top: 1.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.guidance-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-hairline);
+  padding-bottom: 0.75rem;
+}
+
+.guidance-badge {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #78350f;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  letter-spacing: 0.02em;
+}
+
+.guidance-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  margin: 0;
+}
+
+.guidance-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.guidance-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.guidance-num {
+  background: var(--primary-100);
+  color: var(--primary-700);
+  font-weight: 700;
+  font-size: 0.8rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+[data-theme="dark"] .guidance-num {
+  background: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+}
+
+.btn-whatsapp-share {
+  background: #25D366;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-bangla);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.btn-whatsapp-share:hover {
+  background: #1ebd5a;
+  transform: translateY(-1px);
+}
+

@@ -239,6 +239,9 @@
             <span>প্রিন্ট-রেডি দরখাস্ত (A4 সাইজ)</span>
           </div>
           <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="BanglaDoc.shareViaWhatsApp('থানায় জিডি দরখাস্ত')" title="হোয়াটসঅ্যাপে শেয়ার করুন">
+              💬 শেয়ার
+            </button>
             <button type="button" class="btn btn-secondary" onclick="exportAsWordDoc()" title="Word ফাইলে সেভ করুন">
               📝 Word
             </button>
@@ -303,6 +306,28 @@
           </div>
 
         </article>
+
+        <!-- Legal Police Guidance Card -->
+        <div class="legal-guidance-card">
+          <div class="guidance-header">
+            <span class="guidance-badge">থানা ও পুলিশ বিধান</span>
+            <h3 class="guidance-title">জিডি দরখাস্ত প্রিন্ট ও জমা দেওয়ার সঠিক নিয়ম</h3>
+          </div>
+          <ul class="guidance-list">
+            <li class="guidance-item">
+              <span class="guidance-num">১</span>
+              <div><strong>২ কপি প্রিন্ট:</strong> দরখাস্তটি অবশ্যই ২ (দুই) কপি A4 সাইজে প্রিন্ট করবেন। কোনো প্রকার স্ট্যাম্প বা সরকারি ফি লাগে না (জিডি সম্পূর্ণ বিনামূল্যে হয়)।</div>
+            </li>
+            <li class="guidance-item">
+              <span class="guidance-num">২</span>
+              <div><strong>স্বাক্ষর ও প্রমাণক:</strong> দরখাস্তের নিচে স্বাক্ষর করবেন এবং হারিয়ে যাওয়া জিনিসের প্রমাণ (যেমন সিম রেজিস্ট্রেশন বা ক্রয়ের মেমো/বক্সের ফটোকপি) সাথে রাখবেন।</div>
+            </li>
+            <li class="guidance-item">
+              <span class="guidance-num">৩</span>
+              <div><strong>রিসিভিং কপি গ্রহণ:</strong> ডিউটি অফিসার জিডি নম্বর, সিল ও তারিখসহ ১টি কপি থানায় রাখবেন এবং অপর কপি আপনাকে রিসিভিং কপি হিসেবে ফেরত দেবেন।</div>
+            </li>
+          </ul>
+        </div>
       </section>
 
     </div>
@@ -436,17 +461,31 @@
       const preview = document.getElementById('previewPanel');
       const tabForm = document.getElementById('tabFormBtn');
       const tabPreview = document.getElementById('tabPreviewBtn');
+      const dockBtn = document.getElementById('dockToggleBtn');
 
       if (view === 'form') {
         form.style.display = 'block';
         preview.style.display = 'none';
         tabForm.classList.add('active');
         tabPreview.classList.remove('active');
+        if (dockBtn) dockBtn.innerHTML = '📄 দরখাস্ত দেখুন';
+        window.scrollTo({ top: 160, behavior: 'smooth' });
       } else {
         form.style.display = 'none';
         preview.style.display = 'block';
         tabPreview.classList.add('active');
         tabForm.classList.remove('active');
+        if (dockBtn) dockBtn.innerHTML = '✏️ তথ্য এডিট';
+        window.scrollTo({ top: 160, behavior: 'smooth' });
+      }
+    }
+
+    function toggleMobileDockView() {
+      const preview = document.getElementById('previewPanel');
+      if (preview && window.getComputedStyle(preview).display === 'block') {
+        switchMobileView('form');
+      } else {
+        switchMobileView('preview');
       }
     }
 
@@ -467,6 +506,36 @@
       URL.revokeObjectURL(url);
       showToast('MS Word (.doc) ফাইল ডাউনলোড শুরু হয়েছে!');
     }
+
+    // Initialize AutoDraft Persistence
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.BanglaDoc && window.BanglaDoc.initAutoDraft) {
+        window.BanglaDoc.initAutoDraft('gdForm', 'bangladoc_draft_gd', function () {
+          // Trigger inputs to refresh documentSheet
+          document.querySelectorAll('#gdForm input, #gdForm textarea').forEach(inp => {
+            inp.dispatchEvent(new Event('input'));
+          });
+        });
+      }
+    });
   </script>
+
+  <!-- Floating Mobile Action Dock -->
+  <div class="mobile-action-dock" id="mobileActionDock">
+    <div class="dock-status">
+      <span class="dock-pulse-dot" id="dockPulseDot"></span>
+      <span id="dockStatusLabel">খসড়া সুরক্ষিত ✓</span>
+    </div>
+    <div class="dock-buttons">
+      <button type="button" class="dock-btn dock-btn-preview" id="dockToggleBtn" onclick="toggleMobileDockView()">
+        📄 দরখাস্ত দেখুন
+      </button>
+      <button type="button" class="dock-btn dock-btn-print" onclick="window.print()">
+        🖨️ প্রিন্ট / PDF
+      </button>
+    </div>
+  </div>
+
+  <script src="js/autodraft.js"></script>
 </body>
 </html>
