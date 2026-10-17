@@ -6,6 +6,7 @@ on:
       - main
       - 'test/**'
       - 'feature/**'
+      - 'perf/**'
   pull_request:
     branches:
       - main
@@ -25,6 +26,7 @@ jobs:
 
       - name: Enforce Test Updates for Source Code Changes
         run: |
+          git fetch origin ${{ github.base_ref }} --depth=100
           echo "Comparing changes against base branch: origin/${{ github.base_ref }}"
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
           echo "Changed files in PR:"
@@ -69,8 +71,8 @@ jobs:
       - name: Unit & Integration Tests (Coverage)
         run: npm run test:coverage
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright Browsers & Headless Shell
+        run: npx playwright install --with-deps chromium chromium-headless-shell
 
       - name: Playwright End-to-End Tests
         run: npm run test:e2e

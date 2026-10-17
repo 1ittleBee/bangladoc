@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Homepage Discovery & Navigation Flow', () => {
   test('loads homepage with vector logo, search bar, and 7 document cards', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     // Check page title and official vector logo
     await expect(page).toHaveTitle(/BanglaDoc/);
@@ -21,7 +21,7 @@ test.describe('Homepage Discovery & Navigation Flow', () => {
   });
 
   test('filters document list dynamically on search input', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
     const searchInput = page.locator('#catalogSearchInput');
 
     // Search for "ভাড়া" (rent)
@@ -40,7 +40,7 @@ test.describe('Homepage Discovery & Navigation Flow', () => {
   });
 
   test('clicking "অফিসে ছুটির আবেদন" navigates to leave-application.html (not police GD)', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
     const leaveCard = page.locator('.catalog-card', { hasText: 'অফিসে ছুটির আবেদন' });
     await leaveCard.click();
 
@@ -49,7 +49,7 @@ test.describe('Homepage Discovery & Navigation Flow', () => {
   });
 
   test('clicking "বাসা ও ফ্ল্যাট ভাড়ার চুক্তিপত্র" navigates to rent-agreement.html', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
     const rentCard = page.locator('.catalog-card', { hasText: 'বাসা ও ফ্ল্যাট ভাড়ার চুক্তিপত্র' });
     await rentCard.click();
 

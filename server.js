@@ -43,6 +43,6 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`BanglaDoc preview server running at http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`BanglaDoc preview server running at http://127.0.0.1:${PORT}`);
 });

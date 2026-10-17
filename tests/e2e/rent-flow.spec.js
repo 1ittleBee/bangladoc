@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Rent Agreement Generator Flow', () => {
   test('updates live preview when form inputs change', async ({ page }) => {
-    await page.goto('/rent-agreement.html');
+    await page.goto('/rent-agreement.html', { waitUntil: 'domcontentloaded' });
 
     // Landlord info
     const landlordInput = page.locator('#landlordName');
@@ -30,7 +30,7 @@ test.describe('Rent Agreement Generator Flow', () => {
       }));
     });
 
-    await page.goto('/rent-agreement.html');
+    await page.goto('/rent-agreement.html', { waitUntil: 'domcontentloaded' });
 
     // Restoration banner should be displayed
     const banner = page.locator('#draftAlertBanner');
@@ -42,7 +42,7 @@ test.describe('Rent Agreement Generator Flow', () => {
   test('Mobile Sticky Dock toggles between Form and Document Preview', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'This test is only relevant for mobile viewports');
 
-    await page.goto('/rent-agreement.html');
+    await page.goto('/rent-agreement.html', { waitUntil: 'domcontentloaded' });
 
     const dockToggleBtn = page.locator('#dockToggleBtn');
     const formPanel = page.locator('#formPanel');
@@ -54,7 +54,6 @@ test.describe('Rent Agreement Generator Flow', () => {
     await dockToggleBtn.click({ force: true });
     const isPreview1 = await previewPanel.isVisible();
     const isForm1 = await formPanel.isVisible();
-    // Exclusivity: exactly one panel must be active
     expect(isPreview1 !== isForm1).toBe(true);
 
     // Second toggle back via sticky dock
@@ -66,10 +65,9 @@ test.describe('Rent Agreement Generator Flow', () => {
   });
 
   test('triggers Word document download on export button click', async ({ page, isMobile }) => {
-    await page.goto('/rent-agreement.html');
+    await page.goto('/rent-agreement.html', { waitUntil: 'domcontentloaded' });
 
     if (isMobile) {
-      // On mobile, explicitly activate the preview tab to expose the toolbar
       await page.locator('#tabPreviewBtn').click();
     }
 
