@@ -8,7 +8,6 @@
   <link rel="canonical" href="https://bangladoc.com/money-loan.html">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Structured Data: FAQ Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -20,14 +19,6 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "হ্যাঁ, সাক্ষীদের উপস্থিতিতে সম্পাদিত লিখিত অঙ্গীকারনামা বা মানি রিসিট যেকোনো দেওয়ানি মামলায় টাকা লেনদেনের শক্তিশালী আইনি প্রমাণ হিসেবে গণ্য হয়।"
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "টাকা ধারের চুক্তিতে সাক্ষীর ভূমিকা কী?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "উভয় পক্ষের সম্মতিক্রমে টাকা আদান-প্রদানের সময় অন্তত দুইজন সাবালক ও পরিচিত সাক্ষীর নাম, ঠিকানা ও স্বাক্ষর থাকা আইনি সুরক্ষার জন্য অপরিহার্য।"
         }
       }
     ]
@@ -46,15 +37,20 @@
           <span class="logo-tagline">সহজ আইনি ও প্রশাসনিক কাগজপত্র</span>
         </div>
       </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">হোম</a></li>
-          <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
-          <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
-          <li><a href="money-loan.html" class="active">টাকা ধার চুক্তি</a></li>
-          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
-        </ul>
-      </nav>
+      <div class="header-right">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">হোম</a></li>
+            <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html" class="active">টাকা ধার চুক্তি</a></li>
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="থিম পরিবর্তন">
+          🌙
+        </button>
+      </div>
     </div>
   </header>
 
@@ -62,20 +58,28 @@
   <section class="hero-section">
     <div class="container">
       <div class="hero-pill">
-        <span class="badge badge-privacy">১০০% নিরাপদ</span>
-        আর্থিক তথ্য সম্পূর্ণ গোপন থাকে ও ক্লায়েন্ট-সাইডে রেন্ডার হয়
+        <span class="live-indicator"></span>
+        ১০০% ক্লায়েন্ট-সাইড — আর্থিক তথ্য সুরক্ষিত
       </div>
       <h1 class="hero-title">টাকা ধার ও ঋণ লেনদেনের <span>অঙ্গীকারনামা জেনারেটর</span></h1>
-      <p class="hero-subtitle">বন্ধুবান্ধব বা পরিচিতজনের মধ্যে টাকা ধার লেনদেনে আইনি সুরক্ষার জন্য প্রমিত অঙ্গীকারনামা তৈরি করুন।</p>
+      <p class="hero-subtitle">পরিচিতজনের মধ্যে টাকা ধার লেনদেনে আইনি সুরক্ষার জন্য প্রমিত অঙ্গীকারনামা তৈরি করুন।</p>
     </div>
   </section>
+
+  <!-- Mobile View Switcher -->
+  <div class="container">
+    <div class="mobile-view-tabs" role="tablist">
+      <button type="button" class="mobile-tab-btn active" id="tabFormBtn" onclick="switchMobileView('form')">✏️ তথ্য লিখুন</button>
+      <button type="button" class="mobile-tab-btn" id="tabPreviewBtn" onclick="switchMobileView('preview')">📄 দলিল প্রিভিউ</button>
+    </div>
+  </div>
 
   <!-- Generator Workspace -->
   <main class="container">
     <div class="generator-workspace">
       
       <!-- Input Form Panel -->
-      <section class="form-panel" aria-label="টাকা ধারের তথ্য ফরম">
+      <section class="form-panel" id="formPanel" aria-label="টাকা ধারের তথ্য ফরম">
         <div class="panel-header">
           <h2 class="panel-title">ঋণ লেনদেনের বিবরণ দিন</h2>
           <p class="panel-desc">ঋণদাতা ও গ্রহীতার বিবরণ এবং পরিশোধের শর্তাবলী পূরণ করুন।</p>
@@ -87,7 +91,10 @@
           <div class="form-section">
             <div class="section-label">১ম পক্ষ (ঋণদাতা / যিনি টাকা ধার দিলেন)</div>
             <div class="form-group">
-              <label for="lenderName">ঋণদাতার পূর্ণ নাম *</label>
+              <label for="lenderName">
+                <span>ঋণদাতার পূর্ণ নাম *</span>
+                <span class="field-hint">এনআইডি অনুযায়ী</span>
+              </label>
               <input type="text" id="lenderName" class="form-control" value="মোঃ কামাল হোসেন" required>
             </div>
             <div class="form-row">
@@ -116,7 +123,10 @@
           <div class="form-section">
             <div class="section-label">২য় পক্ষ (ঋণগ্রহীতা / যিনি টাকা গ্রহণ করিলেন)</div>
             <div class="form-group">
-              <label for="borrowerName">ঋণগ্রহীতার পূর্ণ নাম *</label>
+              <label for="borrowerName">
+                <span>ঋণগ্রহীতার পূর্ণ নাম *</span>
+                <span class="field-hint">এনআইডি অনুযায়ী</span>
+              </label>
               <input type="text" id="borrowerName" class="form-control" value="মোঃ সাজ্জাদুল হক" required>
             </div>
             <div class="form-row">
@@ -145,9 +155,16 @@
           <div class="form-section">
             <div class="section-label">ধারের পরিমাণ ও পরিশোধের শর্ত</div>
             <div class="form-group">
-              <label for="loanAmount">ধারের মূল টাকার পরিমাণ (টাকা) *</label>
+              <label for="loanAmount">
+                <span>ধারের মূল টাকার পরিমাণ (টাকা) *</span>
+                <span class="field-hint">অংকে</span>
+              </label>
               <input type="number" id="loanAmount" class="form-control" value="100000">
-              <span id="loanWords" class="words-indicator">এক লক্ষ টাকা মাত্র</span>
+              <div class="words-indicator">
+                <span>✍️</span>
+                <span id="loanWords" style="flex-grow: 1;">এক লক্ষ টাকা মাত্র</span>
+                <button type="button" class="btn" style="padding: 0.1rem 0.4rem; font-size: 0.75rem; background: rgba(13,110,99,0.1); color: var(--primary-600);" onclick="copySpecificText('loanWords')">কপি</button>
+              </div>
             </div>
             <div class="form-row">
               <div class="form-group">
@@ -173,17 +190,21 @@
       </section>
 
       <!-- Live Document Preview Panel -->
-      <section class="preview-panel" aria-label="অঙ্গীকারনামা লাইভ প্রিভিউ">
+      <section class="preview-panel" id="previewPanel" aria-label="অঙ্গীকারনামা লাইভ প্রিভিউ">
         <div class="preview-toolbar">
           <div class="preview-title-bar">
-            <span>📄 লাইভ দলিল প্রিভিউ (A4 ফরম্যাট)</span>
+            <span class="live-indicator"></span>
+            <span>লাইভ দলিল প্রিভিউ (A4 ফরম্যাট)</span>
           </div>
           <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="exportAsWordDoc()" title="Word ফাইলে সেভ করুন">
+              📝 Word
+            </button>
             <button type="button" class="btn btn-secondary" id="copyBtn" onclick="copyDocumentText()">
               📋 কপি
             </button>
             <button type="button" class="btn btn-primary" id="printBtn" onclick="window.print()">
-              🖨️ প্রিন্ট / PDF সংরক্ষণ
+              🖨️ প্রিন্ট / PDF
             </button>
           </div>
         </div>
@@ -236,7 +257,7 @@
                 উক্ত গৃহিত ঋণের অর্থ আগামী <span id="viewRepayDate" class="highlight-field">১৭ এপ্রিল, ২০২৭ খ্রিষ্টাব্দ</span> তারিখের মধ্যে আমি ২য় পক্ষ ১ম পক্ষকে সম্পূর্ণ পরিশোধ করিতে বাধ্য থাকিব।
               </li>
               <li>
-                নির্ধারিত সময়ের মধ্যে আমি ঋণগ্রহীতা ঋণের সমুদয় অর্থ পরিশোধে ব্যর্থ হইলে ১ম পক্ষ আমার বিরুদ্ধে দেশের প্রচলিত আইন ও আদালতে আইনগত ব্যবস্থা গ্রহণ করিতে পারিবেন এবং সেক্ষেত্রে কোনো প্রকার আপত্তি উত্থাপন করিব না।
+                নির্ধারিত সময়ের মধ্যে আমি ঋণগ্রহীতা ঋণের সমুদয় অর্থ পরিশোধে ব্যর্থ হইলে ১ম পক্ষ আমার বিরুদ্ধে দেশের প্রচলিত আইন ও আদালতে আইনগত ব্যবস্থা গ্রহণ করিতে পারিবেন।
               </li>
               <li>
                 উক্ত টাকা লেনদেন সংক্রান্ত যাবতীয় প্রমাণ ও শর্তাদি অত্র দলিলে স্বাক্ষরকারী সাক্ষীগণের সম্মুখে নিষ্পন্ন করা হইল।
@@ -290,22 +311,9 @@
         <div class="checklist-box">
           <ul>
             <li>টাকা পরিশোধের সুনির্দিষ্ট তারিখ ও কিস্তির বিবরণ লিখিতভাবে উল্লেখ রাখুন।</li>
-            <li>সম্ভব হলে ব্যাংকিং চ্যানেল (যেমন চেক বা অ্যাকাউন্ট ট্রান্সফার)-এর মাধ্যমে লেনদেন করুন, যাতে ট্রানজ্যাকশন আইডি ও স্টেটমেন্ট রেকর্ড থাকে।</li>
-            <li>চুক্তি সম্পাদনের সময় অন্তত দুইজন প্রাপ্তবয়স্ক সাক্ষীকে উপস্থিত রাখুন এবং তাদের পূর্ণ জাতীয় পরিচয়পত্র নম্বর ও স্বাক্ষর যুক্ত করুন।</li>
-            <li>চুক্তিটির দুটি কপি প্রিন্ট করে এক কপি ঋণদাতার কাছে এবং অপর কপি ঋণগ্রহীতার কাছে সংরক্ষণ করুন।</li>
+            <li>সম্ভব হলে ব্যাংকিং চ্যানেল (যেমন চেক বা অ্যাকাউন্ট ট্রান্সফার)-এর মাধ্যমে লেনদেন করুন।</li>
+            <li>চুক্তি সম্পাদনের সময় অন্তত দুইজন প্রাপ্তবয়স্ক সাক্ষীকে উপস্থিত রাখুন।</li>
           </ul>
-        </div>
-
-        <h3>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</h3>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <div class="faq-question">প্রশ্ন: এই চুক্তিপত্রটি কি আইনগতভাবে বৈধ?</div>
-            <div class="faq-answer">উত্তর: হ্যাঁ, সাক্ষীদের উপস্থিতিতে সম্পাদিত লিখিত প্রাপ্তি স্বীকারপত্র বা প্রমিজরি নোট আদালতের কাছে একটি শক্তিশালী প্রাথমিক প্রমাণ হিসেবে বিবেচিত হয়।</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">প্রশ্ন: ধারের টাকা ফেরত না দিলে কী আইনগত পদক্ষেপ নেওয়া যায়?</div>
-            <div class="faq-answer">উত্তর: যদি লিখিত চুক্তিপত্র এবং ব্যাংক চেক বা মানি রিসিট থাকে, তবে নেগোশিয়েবল ইনস্ট্রুমেন্টস অ্যাক্ট (NI Act) বা দেওয়ানি আদালতে অর্থ জারির মামলা দায়ের করা যায়।</div>
-          </div>
         </div>
       </div>
     </article>
@@ -346,6 +354,7 @@
   </footer>
 
   <script src="js/converter.js"></script>
+  <script src="js/theme.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const today = new Date();
@@ -356,7 +365,6 @@
       const dd = String(today.getDate()).padStart(2, '0');
       document.getElementById('loanDate').value = `${yyyy}-${mm}-${dd}`;
 
-      // Default repay date 6 months later
       const repayDateObj = new Date(today.getFullYear(), today.getMonth() + 6, today.getDate());
       const rY = repayDateObj.getFullYear();
       const rM = String(repayDateObj.getMonth() + 1).padStart(2, '0');
@@ -413,15 +421,52 @@
     function copyDocumentText() {
       const doc = document.getElementById('documentSheet');
       navigator.clipboard.writeText(doc.innerText).then(() => {
-        const btn = document.getElementById('copyBtn');
-        const orig = btn.innerHTML;
-        btn.innerHTML = '✓ কপি সম্পন্ন!';
-        btn.style.color = '#047857';
-        setTimeout(() => {
-          btn.innerHTML = orig;
-          btn.style.color = '';
-        }, 2000);
+        showToast('অঙ্গীকারনামা টেক্সট সফলভাবে কপি হয়েছে!');
       });
+    }
+
+    function copySpecificText(elemId) {
+      const text = document.getElementById(elemId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`কথায় টাকা কপি সম্পন্ন: ${text}`);
+      });
+    }
+
+    function switchMobileView(view) {
+      const form = document.getElementById('formPanel');
+      const preview = document.getElementById('previewPanel');
+      const tabForm = document.getElementById('tabFormBtn');
+      const tabPreview = document.getElementById('tabPreviewBtn');
+
+      if (view === 'form') {
+        form.style.display = 'block';
+        preview.style.display = 'none';
+        tabForm.classList.add('active');
+        tabPreview.classList.remove('active');
+      } else {
+        form.style.display = 'none';
+        preview.style.display = 'block';
+        tabPreview.classList.add('active');
+        tabForm.classList.remove('active');
+      }
+    }
+
+    function exportAsWordDoc() {
+      const content = document.getElementById('documentSheet').innerHTML;
+      const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>টাকা ধারের অঙ্গীকারনামা</title><style>body{font-family:'Kalpurush','SutonnyMJ','Arial',sans-serif;line-height:1.6;font-size:12pt;}</style></head><body>`;
+      const footer = "</body></html>";
+      const sourceHTML = header + content + footer;
+      
+      const blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'টাকা_ধারের_অঙ্গীকারনামা_BanglaDoc.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('MS Word (.doc) ফাইল ডাউনলোড শুরু হয়েছে!');
     }
   </script>
 </body>

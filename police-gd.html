@@ -8,7 +8,6 @@
   <link rel="canonical" href="https://bangladoc.com/police-gd.html">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Structured Data: FAQ Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -29,14 +28,6 @@
           "@type": "Answer",
           "text": "মোবাইল হারানোর ক্ষেত্রে ফোনের ব্র্যান্ড, মডেল, সিম নম্বর এবং ১৫ ডিজিটের আইএমইআই (IMEI) নম্বর উল্লেখ করা আবশ্যক।"
         }
-      },
-      {
-        "@type": "Question",
-        "name": "জিডির কপি দিয়ে কি নতুন সিম বা এনআইডি তোলা যায়?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "হ্যাঁ, থানায় আবেদন জমা দিয়ে অফিসিয়াল সিল ও জিডি নম্বরযুক্ত ফটোকপি নিয়ে আপনি সিম রি-ইস্যু বা ডুপ্লিকেট এনআইডি কার্ড তুলতে পারবেন।"
-        }
       }
     ]
   }
@@ -54,15 +45,20 @@
           <span class="logo-tagline">সহজ আইনি ও প্রশাসনিক কাগজপত্র</span>
         </div>
       </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">হোম</a></li>
-          <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
-          <li><a href="police-gd.html" class="active">জিডি দরখাস্ত</a></li>
-          <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
-          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
-        </ul>
-      </nav>
+      <div class="header-right">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">হোম</a></li>
+            <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html" class="active">জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="থিম পরিবর্তন">
+          🌙
+        </button>
+      </div>
     </div>
   </header>
 
@@ -70,20 +66,28 @@
   <section class="hero-section">
     <div class="container">
       <div class="hero-pill">
-        <span class="badge badge-privacy">১০০% নিরাপদ</span>
-        ব্যক্তিগত তথ্য আপনার ব্রাউজারেই প্রক্রিয়াজাত হয়
+        <span class="live-indicator"></span>
+        ১০০% ক্লায়েন্ট-সাইড — তথ্য সুরক্ষিত থাকে
       </div>
       <h1 class="hero-title">থানায় সাধারণ ডায়েরি <span>(জিডি) আবেদন জেনারেটর</span></h1>
       <p class="hero-subtitle">মোবাইল, এনআইডি বা সনদপত্র হারানোর অফিসিয়াল আবেদন পত্র তৈরি করুন নিমেষেই।</p>
     </div>
   </section>
 
+  <!-- Mobile View Switcher -->
+  <div class="container">
+    <div class="mobile-view-tabs" role="tablist">
+      <button type="button" class="mobile-tab-btn active" id="tabFormBtn" onclick="switchMobileView('form')">✏️ তথ্য লিখুন</button>
+      <button type="button" class="mobile-tab-btn" id="tabPreviewBtn" onclick="switchMobileView('preview')">📄 দরখাস্ত প্রিভিউ</button>
+    </div>
+  </div>
+
   <!-- Generator Workspace -->
   <main class="container">
     <div class="generator-workspace">
       
       <!-- Input Form Panel -->
-      <section class="form-panel" aria-label="জিডি আবেদনের তথ্য ফরম">
+      <section class="form-panel" id="formPanel" aria-label="জিডি আবেদনের তথ্য ফরম">
         <div class="panel-header">
           <h2 class="panel-title">জিডি আবেদনের বিবরণ দিন</h2>
           <p class="panel-desc">হারানোর ধরন নির্বাচন করুন এবং প্রয়োজনীয় বিবরণ দিন।</p>
@@ -176,17 +180,21 @@
       </section>
 
       <!-- Live Document Preview Panel -->
-      <section class="preview-panel" aria-label="জিডি আবেদন প্রিভিউ">
+      <section class="preview-panel" id="previewPanel" aria-label="জিডি আবেদন প্রিভিউ">
         <div class="preview-toolbar">
           <div class="preview-title-bar">
-            <span>📄 প্রিন্ট-রেডি দরখাস্ত (A4 সাইজ)</span>
+            <span class="live-indicator"></span>
+            <span>প্রিন্ট-রেডি দরখাস্ত (A4 সাইজ)</span>
           </div>
           <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="exportAsWordDoc()" title="Word ফাইলে সেভ করুন">
+              📝 Word
+            </button>
             <button type="button" class="btn btn-secondary" id="copyBtn" onclick="copyDocumentText()">
               📋 কপি
             </button>
             <button type="button" class="btn btn-primary" id="printBtn" onclick="window.print()">
-              🖨️ প্রিন্ট / PDF সংরক্ষণ
+              🖨️ প্রিন্ট / PDF
             </button>
           </div>
         </div>
@@ -247,7 +255,7 @@
 
     </div>
 
-    <!-- SEO & AdSense Content Section -->
+    <!-- SEO Content Section -->
     <article class="seo-guide-section">
       <div class="guide-header">
         <h2 class="guide-title">থানায় জিডি করার সঠিক নিয়ম ও আইনি নির্দেশিকা</h2>
@@ -265,24 +273,7 @@
             <li>দরখাস্তটি ২ (দুই) কপি প্রিন্ট করে নিয়ে থানায় দায়িত্বপ্রাপ্ত ডিউটি অফিসারের নিকট জমা দিন।</li>
             <li>ডিউটি অফিসার দরখাস্তটি গ্রহণ করে জিডি রেজিস্টারে এন্ট্রি করবেন এবং জিডি নম্বর ও তারিখ প্রদান করবেন।</li>
             <li>এক কপি থানায় রক্ষিত থাকবে এবং অন্য কপিতে থানার সিল ও অফিসারের স্বাক্ষরসহ আপনাকে একটি অনুলিপি (Receiving Copy) প্রদান করা হবে।</li>
-            <li>এই রিসিভিং কপিটি যত্নসহকারে সংরক্ষণ করুন; কারণ নতুন সিম তুলতে বা ডুপ্লিকেট সার্টিফিকেট/এনআইডি আবেদনের সময় এটি বাধ্যতামূলকভাবে প্রদর্শন করতে হবে।</li>
           </ul>
-        </div>
-
-        <h3>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</h3>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <div class="faq-question">প্রশ্ন: কোন থানায় জিডি করতে হয়?</div>
-            <div class="faq-answer">উত্তর: যে থানা এলাকার মধ্যে জিনিসটি হারিয়ে গেছে বা ঘটনাটি ঘটেছে, সাধারণত সেই থানার আওতাধীন থানায় জিডি করা সবচেয়ে কার্যকর।</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">প্রশ্ন: জিডি করার জন্য কি কোনো টাকা দিতে হয়?</div>
-            <div class="faq-answer">উত্তর: সম্পূর্ণ ভুল ধারণা। জিডি করার জন্য কোনো প্রকার ফি প্রযোজ্য নয়। এটি নাগরিকদের জন্য বাংলাদেশ পুলিশের একটি সম্পূর্ণ বিনামূল্যে সেবা।</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">প্রশ্ন: মোবাইল হারানোর ক্ষেত্রে IMEI নম্বর কেন জরুরি?</div>
-            <div class="faq-answer">উত্তর: পুলিশ ট্র্যাকিং সফটওয়্যারের মাধ্যমে হারিয়ে যাওয়া ফোনটি পরবর্তীতে অন্য কোনো সিম ঢুকিয়ে চালু করা হলে তৎক্ষণাৎ শনাক্ত করতে IMEI নম্বর অপরিহার্য।</div>
-          </div>
         </div>
       </div>
     </article>
@@ -323,6 +314,7 @@
   </footer>
 
   <script src="js/converter.js"></script>
+  <script src="js/theme.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const today = new Date();
@@ -383,15 +375,45 @@
     function copyDocumentText() {
       const doc = document.getElementById('documentSheet');
       navigator.clipboard.writeText(doc.innerText).then(() => {
-        const btn = document.getElementById('copyBtn');
-        const orig = btn.innerHTML;
-        btn.innerHTML = '✓ কপি সম্পন্ন!';
-        btn.style.color = '#047857';
-        setTimeout(() => {
-          btn.innerHTML = orig;
-          btn.style.color = '';
-        }, 2000);
+        showToast('জিডি দরখাস্ত টেক্সট কপি হয়েছে!');
       });
+    }
+
+    function switchMobileView(view) {
+      const form = document.getElementById('formPanel');
+      const preview = document.getElementById('previewPanel');
+      const tabForm = document.getElementById('tabFormBtn');
+      const tabPreview = document.getElementById('tabPreviewBtn');
+
+      if (view === 'form') {
+        form.style.display = 'block';
+        preview.style.display = 'none';
+        tabForm.classList.add('active');
+        tabPreview.classList.remove('active');
+      } else {
+        form.style.display = 'none';
+        preview.style.display = 'block';
+        tabPreview.classList.add('active');
+        tabForm.classList.remove('active');
+      }
+    }
+
+    function exportAsWordDoc() {
+      const content = document.getElementById('documentSheet').innerHTML;
+      const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>জিডি দরখাস্ত</title><style>body{font-family:'Kalpurush','SutonnyMJ','Arial',sans-serif;line-height:1.6;font-size:12pt;}</style></head><body>`;
+      const footer = "</body></html>";
+      const sourceHTML = header + content + footer;
+      
+      const blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'থানায়_জিডি_আবেদন_BanglaDoc.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('MS Word (.doc) ফাইল ডাউনলোড শুরু হয়েছে!');
     }
   </script>
 </body>

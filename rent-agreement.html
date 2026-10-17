@@ -8,7 +8,6 @@
   <link rel="canonical" href="https://bangladoc.com/rent-agreement.html">
   <link rel="stylesheet" href="css/style.css">
   
-  <!-- Structured Data: FAQ Schema for Google Search Rich Snippets -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,15 +53,20 @@
           <span class="logo-tagline">সহজ আইনি ও প্রশাসনিক কাগজপত্র</span>
         </div>
       </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">হোম</a></li>
-          <li><a href="rent-agreement.html" class="active">ভাড়া চুক্তিপত্র</a></li>
-          <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
-          <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
-          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
-        </ul>
-      </nav>
+      <div class="header-right">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">হোম</a></li>
+            <li><a href="rent-agreement.html" class="active">ভাড়া চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="থিম পরিবর্তন">
+          🌙
+        </button>
+      </div>
     </div>
   </header>
 
@@ -70,23 +74,30 @@
   <section class="hero-section">
     <div class="container">
       <div class="hero-pill">
-        <span class="badge badge-privacy">১০০% নিরাপদ</span>
-        তথ্য আপনার ব্রাউজারেই সংরক্ষিত থাকে, কোনো সার্ভারে যায় না
+        <span class="live-indicator"></span>
+        ১০০% নিরাপদ — ডেটা আপনার ব্রাউজারেই থাকে
       </div>
       <h1 class="hero-title">বাসা ও ফ্ল্যাট ভাড়ার <span>চুক্তিপত্র জেনারেটর</span></h1>
       <p class="hero-subtitle">তথ্যগুলো পূরণ করুন এবং ১ ক্লিকেই তৈরি করুন প্রমিত ও পরিপাটি A4 প্রিন্ট-রেডি চুক্তিপত্র দলিল।</p>
     </div>
   </section>
 
-  <!-- Generator Workspace (Form Left + Live Preview Right) -->
+  <!-- Generator Workspace -->
   <main class="container">
+
+    <!-- Mobile View Switcher (Visible on Mobile) -->
+    <div class="mobile-view-tabs" role="tablist">
+      <button type="button" class="mobile-tab-btn active" id="tabFormBtn" onclick="switchMobileView('form')">✏️ তথ্য লিখুন</button>
+      <button type="button" class="mobile-tab-btn" id="tabPreviewBtn" onclick="switchMobileView('preview')">📄 দলিল প্রিভিউ</button>
+    </div>
+
     <div class="generator-workspace">
       
       <!-- Input Form Panel -->
-      <section class="form-panel" aria-label="চুক্তিপত্রের তথ্য ফরম">
+      <section class="form-panel" id="formPanel" aria-label="চুক্তিপত্রের তথ্য ফরম">
         <div class="panel-header">
           <h2 class="panel-title">চুক্তির প্রয়োজনীয় তথ্য পূরণ করুন</h2>
-          <p class="panel-desc">বাম পাশের তথ্য পরিবর্তন করার সাথে সাথেই ডান পাশের দলিলে তা লাইভ আপডেট হবে।</p>
+          <p class="panel-desc">বাম পাশের তথ্য পরিবর্তনের সাথে সাথে ডান পাশের প্রমিত দলিলে তা লাইভ আপডেট হবে।</p>
         </div>
 
         <form id="rentForm" onsubmit="return false;">
@@ -95,27 +106,30 @@
           <div class="form-section">
             <div class="section-label">১ম পক্ষ (বাড়িওয়ালা / মালিক)</div>
             <div class="form-group">
-              <label for="landlordName">বাড়িওয়ালার পূর্ণ নাম *</label>
-              <input type="text" id="landlordName" class="form-control" placeholder="উদা: মোঃ আব্দুর রহমান" value="মোঃ আব্দুর রহমান" required>
+              <label for="landlordName">
+                <span>বাড়িওয়ালার পূর্ণ নাম *</span>
+                <span class="field-hint">এনআইডি অনুযায়ী</span>
+              </label>
+              <input type="text" id="landlordName" class="form-control" value="মোঃ আব্দুর রহমান" required>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="landlordGuardian">পিতা / স্বামীর নাম *</label>
-                <input type="text" id="landlordGuardian" class="form-control" placeholder="উদা: মৃত আব্দুল করিম" value="মৃত আব্দুল করিম">
+                <input type="text" id="landlordGuardian" class="form-control" value="মৃত আব্দুল করিম">
               </div>
               <div class="form-group">
                 <label for="landlordNid">এনআইডি নম্বর *</label>
-                <input type="text" id="landlordNid" class="form-control" placeholder="উদা: ১২৩৪৫৬৭৮৯০" value="১৯৮৫২৬৯২৫৮৭৪৫২">
+                <input type="text" id="landlordNid" class="form-control" value="১৯৮৫২৬৯২৫৮৭৪৫২">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="landlordPhone">মোবাইল নম্বর *</label>
-                <input type="text" id="landlordPhone" class="form-control" placeholder="উদা: ০১৭xxxxxxxx" value="০১৭XXXXXXXX">
+                <input type="text" id="landlordPhone" class="form-control" value="০১৭XXXXXXXX">
               </div>
               <div class="form-group">
                 <label for="landlordAddress">স্থায়ী ঠিকানা *</label>
-                <input type="text" id="landlordAddress" class="form-control" placeholder="গ্রাম/মহল্লা, ডাকঘর, জেলা" value="বাসা নং- ১২, রোড- ০৪, ধানমন্ডি, ঢাকা">
+                <input type="text" id="landlordAddress" class="form-control" value="বাসা নং- ১২, রোড- ০৪, ধানমন্ডি, ঢাকা">
               </div>
             </div>
           </div>
@@ -124,27 +138,30 @@
           <div class="form-section">
             <div class="section-label">২য় পক্ষ (ভাড়াটিয়া)</div>
             <div class="form-group">
-              <label for="tenantName">ভাড়াটিয়ার পূর্ণ নাম *</label>
-              <input type="text" id="tenantName" class="form-control" placeholder="উদা: রফিকুল ইসলাম" value="মোঃ রফিকুল ইসলাম" required>
+              <label for="tenantName">
+                <span>ভাড়াটিয়ার পূর্ণ নাম *</span>
+                <span class="field-hint">এনআইডি অনুযায়ী</span>
+              </label>
+              <input type="text" id="tenantName" class="form-control" value="মোঃ রফিকুল ইসলাম" required>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="tenantGuardian">পিতা / স্বামীর নাম *</label>
-                <input type="text" id="tenantGuardian" class="form-control" placeholder="উদা: মোঃ জহিরুল হক" value="মোঃ জহিরুল হক">
+                <input type="text" id="tenantGuardian" class="form-control" value="মোঃ জহিরুল হক">
               </div>
               <div class="form-group">
                 <label for="tenantNid">এনআইডি নম্বর *</label>
-                <input type="text" id="tenantNid" class="form-control" placeholder="উদা: ১২৩৪৫৬৭৮৯০" value="১৯৯৩২৬৯২৫১২২৩৩">
+                <input type="text" id="tenantNid" class="form-control" value="১৯৯৩২৬৯২৫১২২৩৩">
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="tenantPhone">মোবাইল নম্বর *</label>
-                <input type="text" id="tenantPhone" class="form-control" placeholder="উদা: ০১৮xxxxxxxx" value="০১৮XXXXXXXX">
+                <input type="text" id="tenantPhone" class="form-control" value="০১৮XXXXXXXX">
               </div>
               <div class="form-group">
                 <label for="tenantAddress">স্থায়ী ঠিকানা *</label>
-                <input type="text" id="tenantAddress" class="form-control" placeholder="গ্রাম/মহল্লা, ডাকঘর, জেলা" value="গ্রাম: রামপুর, ডাক: সোনাপুর, নোয়াখালী">
+                <input type="text" id="tenantAddress" class="form-control" value="গ্রাম: রামপুর, ডাক: সোনাপুর, নোয়াখালী">
               </div>
             </div>
           </div>
@@ -154,14 +171,28 @@
             <div class="section-label">ভাড়া ও আর্থিক শর্তাবলী</div>
             <div class="form-row">
               <div class="form-group">
-                <label for="monthlyRent">মাসিক ভাড়া (টাকা) *</label>
-                <input type="number" id="monthlyRent" class="form-control" placeholder="উদা: ২০০০০" value="20000">
-                <span id="rentWords" class="words-indicator">বিশ হাজার টাকা মাত্র</span>
+                <label for="monthlyRent">
+                  <span>মাসিক ভাড়া (টাকা) *</span>
+                  <span class="field-hint">অংকে</span>
+                </label>
+                <input type="number" id="monthlyRent" class="form-control" value="20000">
+                <div class="words-indicator">
+                  <span>✍️</span>
+                  <span id="rentWords" style="flex-grow: 1;">বিশ হাজার টাকা মাত্র</span>
+                  <button type="button" class="btn" style="padding: 0.1rem 0.4rem; font-size: 0.75rem; background: rgba(13,110,99,0.1); color: var(--primary-600);" onclick="copySpecificText('rentWords')">কপি</button>
+                </div>
               </div>
               <div class="form-group">
-                <label for="advanceAmount">অগ্রিম জামানত (টাকা) *</label>
-                <input type="number" id="advanceAmount" class="form-control" placeholder="উদা: ৫০০০০" value="50000">
-                <span id="advanceWords" class="words-indicator">পঞ্চাশ হাজার টাকা মাত্র</span>
+                <label for="advanceAmount">
+                  <span>অগ্রিম জামানত (টাকা) *</span>
+                  <span class="field-hint">সিকিউরিটি</span>
+                </label>
+                <input type="number" id="advanceAmount" class="form-control" value="50000">
+                <div class="words-indicator">
+                  <span>✍️</span>
+                  <span id="advanceWords" style="flex-grow: 1;">পঞ্চাশ হাজার টাকা মাত্র</span>
+                  <button type="button" class="btn" style="padding: 0.1rem 0.4rem; font-size: 0.75rem; background: rgba(13,110,99,0.1); color: var(--primary-600);" onclick="copySpecificText('advanceWords')">কপি</button>
+                </div>
               </div>
             </div>
 
@@ -182,7 +213,7 @@
             </div>
 
             <div class="form-group">
-              <label for="paymentDay">প্রতি মাসের কত তারিখের মধ্যে ভাড়া পরিশোধ করতে হবে?</label>
+              <label for="paymentDay">ভাড়া পরিশোধের শেষ সময়সীমা</label>
               <select id="paymentDay" class="form-control">
                 <option value="০৫">প্রতি মাসের ০৫ তারিখের মধ্যে</option>
                 <option value="০৭" selected>প্রতি মাসের ০৭ তারিখের মধ্যে</option>
@@ -191,7 +222,7 @@
             </div>
           </div>
 
-          <!-- Property Schedule (তফসিল) -->
+          <!-- Property Schedule -->
           <div class="form-section">
             <div class="section-label">ভাড়াকৃত সম্পত্তির তফসিল বিবরণ</div>
             <div class="form-row">
@@ -220,17 +251,21 @@
       </section>
 
       <!-- Live Document Preview Panel -->
-      <section class="preview-panel" aria-label="লাইভ চুক্তিপত্র দলিল প্রিভিউ">
+      <section class="preview-panel" id="previewPanel" aria-label="লাইভ চুক্তিপত্র দলিল প্রিভিউ">
         <div class="preview-toolbar">
           <div class="preview-title-bar">
-            <span>📄 লাইভ দলিল প্রিভিউ (A4 ফরম্যাট)</span>
+            <span class="live-indicator"></span>
+            <span>লাইভ A4 দলিল প্রিভিউ</span>
           </div>
           <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="exportAsWordDoc()" title="Word ফাইলে সেভ করুন">
+              📝 Word
+            </button>
             <button type="button" class="btn btn-secondary" id="copyBtn" onclick="copyDocumentText()">
               📋 কপি
             </button>
             <button type="button" class="btn btn-primary" id="printBtn" onclick="window.print()">
-              🖨️ প্রিন্ট / PDF সংরক্ষণ
+              🖨️ প্রিন্ট / PDF
             </button>
           </div>
         </div>
@@ -340,7 +375,7 @@
 
     </div>
 
-    <!-- Comprehensive Editorial Guide for Google SEO & AdSense Approval -->
+    <!-- Editorial Guide Section -->
     <article class="seo-guide-section">
       <div class="guide-header">
         <h2 class="guide-title">বাড়ি ভাড়ার চুক্তিপত্র করার সঠিক নিয়ম ও জরুরি সতর্কতা</h2>
@@ -353,8 +388,6 @@
         </p>
 
         <h3>চুক্তিপত্রে যেসব বিষয় উল্লেখ থাকা আবশ্যক</h3>
-        <p>একটি প্রমিত ভাড়ার চুক্তিনামায় নিচের তথ্যগুলো স্পষ্ট ও নির্ভুলভাবে থাকা উচিত:</p>
-        
         <div class="checklist-box">
           <ul>
             <li>১ম পক্ষ (মালিক) এবং ২য় পক্ষ (ভাড়াটিয়া)-এর পূর্ণ নাম, পিতা/স্বামীর নাম, মোবাইল নম্বর ও জাতীয় পরিচয়পত্র (NID) নম্বর।</li>
@@ -366,11 +399,6 @@
           </ul>
         </div>
 
-        <h3>কোন স্ট্যাম্পে চুক্তিপত্র প্রিন্ট করবেন?</h3>
-        <p>
-          আইনিভাবে যেকোনো ভাড়ার চুক্তিপত্র কার্যকর ও প্রমাণ হিসেবে ব্যবহারের জন্য সাধারণত ৩০০ টাকার নন-জুডিশিয়াল স্ট্যাম্পে প্রিন্ট করা শ্রেয়। তবে প্রাথমিক পারস্পরিক স্বীকৃতির জন্য স্ট্যান্ডার্ড A4 পেপারে প্রিন্ট করে উভয় পক্ষের ও সাক্ষীদের পূর্ণ স্বাক্ষর ও এনআইডি কপি সংযুক্ত রেখেও চুক্তি কার্যকর রাখা যায়।
-        </p>
-
         <h3>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</h3>
         <div class="faq-grid">
           <div class="faq-item">
@@ -380,10 +408,6 @@
           <div class="faq-item">
             <div class="faq-question">প্রশ্ন: আমার দেওয়া ব্যক্তিগত তথ্য কি সুরক্ষিত থাকবে?</div>
             <div class="faq-answer">উত্তর: অবশ্যই। BanglaDoc সম্পূর্ণ ক্লায়েন্ট-সাইড প্রযুক্তিতে তৈরি। আপনি ফর্মে যা লিখছেন তা আপনার ব্রাউজারেই প্রক্রিয়াজাত হয়; কোনো সার্ভারে আপনার কোনো ব্যক্তিগত ডেটা জমা থাকে না।</div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">প্রশ্ন: চুক্তিপত্রে কতজন সাক্ষীর স্বাক্ষর প্রয়োজন?</div>
-            <div class="faq-answer">উত্তর: আইনি নিরাপত্তার স্বার্থে চুক্তি সম্পাদনকালে কমপক্ষে ২ জন সাবালক ও সুস্থ মস্তিষ্কের ব্যক্তির নাম, ঠিকানা ও স্বাক্ষর থাকা বাঞ্ছনীয়।</div>
           </div>
         </div>
       </div>
@@ -426,53 +450,41 @@
 
   <!-- Scripts -->
   <script src="js/converter.js"></script>
+  <script src="js/theme.js"></script>
   <script>
-    // Live Binding between Form Inputs and Document Preview
     document.addEventListener('DOMContentLoaded', function () {
-      
-      // Auto-set today's date
       const today = new Date();
       document.getElementById('viewTodayDate').innerText = BanglaConverter.formatBanglaDate(today);
 
-      // Auto-set default start date to next month's 1st
       const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
       const yyyy = nextMonth.getFullYear();
       const mm = String(nextMonth.getMonth() + 1).padStart(2, '0');
       const dd = String(nextMonth.getDate()).padStart(2, '0');
-      const defaultStartDateStr = `${yyyy}-${mm}-${dd}`;
-      document.getElementById('startDate').value = defaultStartDateStr;
+      document.getElementById('startDate').value = `${yyyy}-${mm}-${dd}`;
       document.getElementById('viewStartDate').innerText = BanglaConverter.formatBanglaDate(nextMonth);
 
-      function bindField(inputId, viewId, formatter) {
+      function bindField(inputId, viewId) {
         const input = document.getElementById(inputId);
         const view = document.getElementById(viewId);
         if (!input || !view) return;
 
         input.addEventListener('input', function () {
-          const val = input.value.trim();
-          if (formatter) {
-            view.innerText = formatter(val) || '........';
-          } else {
-            view.innerText = val || '........';
-          }
+          view.innerText = input.value.trim() || '........';
         });
       }
 
-      // 1st Party
       bindField('landlordName', 'viewLandlordName');
       bindField('landlordGuardian', 'viewLandlordGuardian');
       bindField('landlordNid', 'viewLandlordNid');
       bindField('landlordPhone', 'viewLandlordPhone');
       bindField('landlordAddress', 'viewLandlordAddress');
 
-      // 2nd Party
       bindField('tenantName', 'viewTenantName');
       bindField('tenantGuardian', 'viewTenantGuardian');
       bindField('tenantNid', 'viewTenantNid');
       bindField('tenantPhone', 'viewTenantPhone');
       bindField('tenantAddress', 'viewTenantAddress');
 
-      // Financials with Bangla Number to Words
       const rentInput = document.getElementById('monthlyRent');
       const rentWordsSpan = document.getElementById('rentWords');
       const viewRentNumber = document.getElementById('viewRentNumber');
@@ -505,7 +517,6 @@
       advanceInput.addEventListener('input', updateAdvance);
       updateAdvance();
 
-      // Dates & Dropdowns
       document.getElementById('startDate').addEventListener('change', function () {
         document.getElementById('viewStartDate').innerText = BanglaConverter.formatBanglaDate(this.value);
       });
@@ -518,7 +529,6 @@
         document.getElementById('viewPayDay').innerText = this.value;
       });
 
-      // Property Schedule
       bindField('holdingNo', 'viewHolding');
       bindField('flatDetails', 'viewFlat');
       bindField('thana', 'viewThana');
@@ -527,17 +537,54 @@
 
     function copyDocumentText() {
       const doc = document.getElementById('documentSheet');
-      const text = doc.innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copyBtn');
-        const orig = btn.innerHTML;
-        btn.innerHTML = '✓ কপি সম্পন্ন!';
-        btn.style.color = '#047857';
-        setTimeout(() => {
-          btn.innerHTML = orig;
-          btn.style.color = '';
-        }, 2000);
+      navigator.clipboard.writeText(doc.innerText).then(() => {
+        showToast('দলিল টেক্সট সফলভাবে কপি হয়েছে!');
       });
+    }
+
+    function copySpecificText(elemId) {
+      const text = document.getElementById(elemId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`কথায় টাকা কপি সম্পন্ন: ${text}`);
+      });
+    }
+
+    function switchMobileView(view) {
+      const form = document.getElementById('formPanel');
+      const preview = document.getElementById('previewPanel');
+      const tabForm = document.getElementById('tabFormBtn');
+      const tabPreview = document.getElementById('tabPreviewBtn');
+
+      if (view === 'form') {
+        form.style.display = 'block';
+        preview.style.display = 'none';
+        tabForm.classList.add('active');
+        tabPreview.classList.remove('active');
+      } else {
+        form.style.display = 'none';
+        preview.style.display = 'block';
+        tabPreview.classList.add('active');
+        tabForm.classList.remove('active');
+      }
+    }
+
+    // Export cleanly as a formatted MS Word .doc document
+    function exportAsWordDoc() {
+      const content = document.getElementById('documentSheet').innerHTML;
+      const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>চুক্তিপত্র</title><style>body{font-family:'Kalpurush','SutonnyMJ','Arial',sans-serif;line-height:1.6;font-size:12pt;} .highlight-field{font-weight:bold;}</style></head><body>`;
+      const footer = "</body></html>";
+      const sourceHTML = header + content + footer;
+      
+      const blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'বাসা_ভাড়ার_চুক্তিপত্র_BanglaDoc.doc';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('MS Word (.doc) ফাইল ডাউনলোড শুরু হয়েছে!');
     }
   </script>
 </body>

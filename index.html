@@ -8,7 +8,6 @@
   <link rel="canonical" href="https://bangladoc.com/">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Schema.org WebSite & Organization structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,15 +37,20 @@
           <span class="logo-tagline">সহজ আইনি ও প্রশাসনিক কাগজপত্র</span>
         </div>
       </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html" class="active">হোম</a></li>
-          <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
-          <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
-          <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
-          <li><a href="about.html">আমাদের সম্পর্কে</a></li>
-        </ul>
-      </nav>
+      <div class="header-right">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="active">হোম</a></li>
+            <li><a href="rent-agreement.html">ভাড়া চুক্তিপত্র</a></li>
+            <li><a href="police-gd.html">জিডি দরখাস্ত</a></li>
+            <li><a href="money-loan.html">টাকা ধার চুক্তি</a></li>
+            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="থিম পরিবর্তন">
+          🌙
+        </button>
+      </div>
     </div>
   </header>
 
@@ -54,28 +58,40 @@
   <section class="hero-section">
     <div class="container">
       <div class="hero-pill">
-        <span class="badge badge-privacy">১০০% ক্লায়েন্ট-সাইড</span>
-        আপনার ডেটা সুরক্ষিত, কোনো তথ্য সার্ভারে সংরক্ষিত হয় না
+        <span class="live-indicator"></span>
+        ১০০% ক্লায়েন্ট-সাইড — আপনার ডেটা সর্বদা সুরক্ষিত
       </div>
       <h1 class="hero-title">দরখাস্ত ও চুক্তিপত্র তৈরি করুন <span>মাত্র ১ মিনিটে</span></h1>
-      <p class="hero-subtitle">কোনো প্রকার জটিলতা ছাড়াই সঠিক বাংলা ফরম্যাটে চুক্তিপত্র ও দরখাস্ত লিখুন এবং সরাসরি A4 সাইজে প্রিন্ট বা PDF ডাউনলোড করুন।</p>
+      <p class="hero-subtitle">কোনো প্রকার জটিলতা ছাড়াই সঠিক বাংলা ফরম্যাটে চুক্তিপত্র ও দরখাস্ত তৈরি করুন এবং সরাসরি A4 সাইজে প্রিন্ট বা PDF ডাউনলোড করুন।</p>
+      
+      <!-- Instant Live Search Bar -->
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="catalogSearchInput" 
+          class="search-input" 
+          placeholder="কাগজপত্র খুঁজুন (যেমন: বাসা ভাড়া, জিডি, টাকা ধার, ছুটি)..."
+          oninput="filterCatalog()"
+        />
+      </div>
     </div>
   </section>
 
   <!-- Document Catalog Grid -->
   <main class="container">
     <div style="text-align: center; margin-bottom: 2rem;">
-      <h2 style="font-size: 1.85rem; font-weight: 700; color: var(--text-main);">জনপ্রিয় ডকুমেন্টস ও দরখাস্তসমূহ</h2>
-      <p style="color: var(--text-muted); font-size: 1rem;">আপনার প্রয়োজনীয় ক্যাটাগরিটি নির্বাচন করুন</p>
+      <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--text-ink); letter-spacing: -0.02em;">জনপ্রিয় ডকুমেন্টস ও দরখাস্তসমূহ</h2>
+      <p style="color: var(--text-muted); font-size: 1rem;">প্রয়োজনীয় ক্যাটাগরিটি নির্বাচন করে তথ্য পূরণ শুরু করুন</p>
     </div>
 
-    <div class="catalog-grid">
+    <div class="catalog-grid" id="catalogGrid">
       
       <!-- Card 1: Rent Agreement -->
-      <a href="rent-agreement.html" class="catalog-card">
+      <a href="rent-agreement.html" class="catalog-card" data-keywords="বাসা ফ্ল্যাট বাড়ি ভাড়া চুক্তিপত্র rent agreement flat house">
         <span class="card-tag">ভাড়া ও সম্পত্তি</span>
         <h3 class="card-title">বাসা ও ফ্ল্যাট ভাড়ার চুক্তিপত্র</h3>
-        <p class="card-desc">বাড়িওয়ালা ও ভাড়াটিয়ার অধিকার রক্ষায় ১ বছরের প্রমিত ভাড়ার চুক্তিপত্র। সাথে অগ্রিম জামানত ও নোটিশ পিরিয়ডের সঠিক ধারা।</p>
+        <p class="card-desc">বাড়িওয়ালা ও ভাড়াটিয়ার অধিকার রক্ষায় ১ বছরের প্রমিত ভাড়ার চুক্তিপত্র। সাথে অগ্রিম জামানত, মাসিক ভাড়া ও নোটিশ পিরিয়ডের সঠিক ধারা।</p>
         <div class="card-footer">
           <span>বিনামূল্যে তৈরি করুন</span>
           <span>➔</span>
@@ -83,10 +99,10 @@
       </a>
 
       <!-- Card 2: Police GD -->
-      <a href="police-gd.html" class="catalog-card">
+      <a href="police-gd.html" class="catalog-card" data-keywords="থানা পুলিশ জিডি gd general diary মোবাইল ফোন nid কার্ড সার্টিফিকেট সনদ হারানো">
         <span class="card-tag">নিরাপত্তা ও পুলিশ</span>
         <h3 class="card-title">থানায় সাধারণ ডায়েরি (জিডি) আবেদন</h3>
-        <p class="card-desc">মোবাইল ফোন, আসল এনআইডি কার্ড বা শিক্ষাগত সনদপত্র হারানোর জন্য অফিসার ইনচার্জ বরাবর সঠিক আবেদনপত্র।</p>
+        <p class="card-desc">মোবাইল ফোন, আসল এনআইডি কার্ড বা শিক্ষাগত সনদপত্র হারানোর জন্য অফিসার ইনচার্জ বরাবর সঠিক আইনি আবেদনপত্র।</p>
         <div class="card-footer">
           <span>বিনামূল্যে তৈরি করুন</span>
           <span>➔</span>
@@ -94,10 +110,10 @@
       </a>
 
       <!-- Card 3: Money Loan -->
-      <a href="money-loan.html" class="catalog-card">
+      <a href="money-loan.html" class="catalog-card" data-keywords="টাকা ধার ঋণ অঙ্গীকারনামা লোন loan promissory note টাকা লেনদেন প্রাপ্তি স্বীকার">
         <span class="card-tag">আর্থিক লেনদেন</span>
         <h3 class="card-title">টাকা ধার ও ঋণ অঙ্গীকারনামা</h3>
-        <p class="card-desc">ব্যক্তিগত বা ব্যবসায়িক টাকা ধার লেনদেনে আইনি সুরক্ষার জন্য প্রমিজরি নোট ও প্রাপ্তি স্বীকারপত্র ফরম্যাট।</p>
+        <p class="card-desc">ব্যক্তিগত বা ব্যবসায়িক টাকা ধার লেনদেনে আইনি সুরক্ষার জন্য প্রমিজরি নোট, পরিশোধের সময়সীমা ও প্রাপ্তি স্বীকারপত্র ফরম্যাট।</p>
         <div class="card-footer">
           <span>বিনামূল্যে তৈরি করুন</span>
           <span>➔</span>
@@ -105,10 +121,10 @@
       </a>
 
       <!-- Card 4: Shop Rent -->
-      <a href="rent-agreement.html" class="catalog-card">
+      <a href="rent-agreement.html" class="catalog-card" data-keywords="দোকান ঘর বাণিজ্যিক স্পেস অফিস মার্কেট shop commercial rent">
         <span class="card-tag">বাণিজ্যিক</span>
         <h3 class="card-title">দোকান ও বাণিজ্যিক ভাড়ার চুক্তিপত্র</h3>
-        <p class="card-desc">দোকান ঘর বা বাণিজ্যিক অফিস স্পেস ভাড়ার জন্য অগ্রিম সিকিউরিটি ও সার্ভিস চার্জ অন্তর্ভুক্ত পূর্ণাঙ্গ চুক্তি।</p>
+        <p class="card-desc">দোকান ঘর বা বাণিজ্যিক অফিস স্পেস ভাড়ার জন্য অগ্রিম সিকিউরিটি, ইউটিলিটি ও মার্কেট সার্ভিস চার্জ অন্তর্ভুক্ত পূর্ণাঙ্গ চুক্তি।</p>
         <div class="card-footer">
           <span>বিনামূল্যে তৈরি করুন</span>
           <span>➔</span>
@@ -116,10 +132,10 @@
       </a>
 
       <!-- Card 5: Leave Application -->
-      <a href="police-gd.html" class="catalog-card">
+      <a href="police-gd.html" class="catalog-card" data-keywords="ছুটি অফিস চাকরি স্কুল পদত্যাগপত্র resignation sick leave casual">
         <span class="card-tag">চাকরি ও কর্মক্ষেত্র</span>
         <h3 class="card-title">অফিসে ছুটির আবেদন ও পদত্যাগপত্র</h3>
-        <p class="card-desc">অসুস্থতাজনিত ছুটি, নৈমিত্তিক ছুটি এবং চাকরির পদত্যাগপত্র (Resignation letter) তৈরির স্ট্যান্ডার্ড ফরম্যাট।</p>
+        <p class="card-desc">অসুস্থতাজনিত ছুটি, নৈমিত্তিক ছুটি এবং চাকরির আনুষ্ঠানিক পদত্যাগপত্র (Resignation letter) তৈরির স্ট্যান্ডার্ড ফরম্যাট।</p>
         <div class="card-footer">
           <span>বিনামূল্যে তৈরি করুন</span>
           <span>➔</span>
@@ -127,10 +143,10 @@
       </a>
 
       <!-- Card 6: Money in Words Tool -->
-      <a href="rent-agreement.html" class="catalog-card">
+      <a href="rent-agreement.html" class="catalog-card" data-keywords="টাকা কথায় লেখা চেক লিখুন cheque words currency converter হিসাব">
         <span class="card-tag">স্মার্ট ইউটিলিটি</span>
         <h3 class="card-title">টাকা কথায় লেখার অনলাইন টুল</h3>
-        <p class="card-desc">যেকোনো ব্যাংক চেক, ভাউচার ও রসিদের জন্য অংকের টাকাকে নির্ভুল প্রমিত বাংলায় কথায় রূপান্তর করুন।</p>
+        <p class="card-desc">যেকোনো ব্যাংক চেক, ভাউচার ও রসিদের জন্য অংকের টাকাকে নির্ভুল প্রমিত বাংলায় কথায় রূপান্তর ও এক ক্লিকে কপি করুন।</p>
         <div class="card-footer">
           <span>বিনামূল্যে তৈরি করুন</span>
           <span>➔</span>
@@ -140,47 +156,32 @@
     </div>
 
     <!-- Benefits / Feature Highlights -->
-    <section style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 3rem 2rem; margin-bottom: 4rem; box-shadow: var(--shadow-sm);">
-      <div style="text-align: center; max-width: 680px; margin: 0 auto 2.5rem;">
-        <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--text-main);">কেন BanglaDoc ব্যবহার করবেন?</h2>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">সাধারণ কম্পিউটার দোকান বা জটিল ওয়ার্ড ফাইলের ঝামেলা ছাড়াই আধুনিক ডিজিটাল অভিজ্ঞতা</p>
+    <section style="background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); padding: 3.5rem 2.5rem; margin-bottom: 4.5rem; box-shadow: var(--shadow-sm);">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 3rem;">
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--text-ink);">কেন BanglaDoc ব্যবহার করবেন?</h2>
+        <p style="color: var(--text-muted); font-size: 1rem;">সাধারণ কম্পিউটার দোকান বা জটিল ওয়ার্ড ফাইলের ঝামেলা ছাড়াই আধুনিক ডিজিটাল অভিজ্ঞতা</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-        <div style="text-align: center; padding: 1rem;">
-          <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">⚡</div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">লাইভ প্রিভিউ ও ইনস্ট্যান্ট প্রিন্ট</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">ফর্ম পূরণ করার সাথে সাথেই ডানপাশে পরিপাটি A4 সাইজ প্রিভিউ দেখতে পাবেন। এক ক্লিকেই সরাসরি প্রিন্ট বা PDF ডাউনলোড সম্ভব।</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.25rem;">
+        <div style="text-align: center; padding: 1.25rem; background: var(--bg-subtle); border: 1px solid var(--border-hairline); border-radius: var(--radius-md);">
+          <div style="width: 52px; height: 52px; background: var(--primary-50); color: var(--primary-500); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem;">⚡</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-ink);">লাইভ প্রিভিউ ও ইনস্ট্যান্ট প্রিন্ট</h3>
+          <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.7;">ফর্ম পূরণ করার সাথে সাথেই ডানপাশে পরিপাটি A4 সাইজ প্রিভিউ দেখতে পাবেন। এক ক্লিকেই সরাসরি প্রিন্ট বা Word/PDF ডাউনলোড সম্ভব।</p>
         </div>
 
-        <div style="text-align: center; padding: 1rem;">
-          <div style="width: 50px; height: 50px; background: #ecfdf5; color: #047857; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">🔒</div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">১০০% তথ্য নিরাপত্তা ও গোপনীয়তা</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">আপনার জাতীয় পরিচয়পত্র, মোবাইল নম্বর বা ঠিকানার কোনো তথ্যই আমাদের ডেটাবেসে বা সার্ভারে আপলোড হয় না। সম্পূর্ণ প্রক্রিয়াটি আপনার ডিভাইসের ব্রাউজারেই সম্পন্ন হয়।</p>
+        <div style="text-align: center; padding: 1.25rem; background: var(--bg-subtle); border: 1px solid var(--border-hairline); border-radius: var(--radius-md);">
+          <div style="width: 52px; height: 52px; background: #ecfdf5; color: #047857; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem;">🔒</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-ink);">১০০% তথ্য নিরাপত্তা ও গোপনীয়তা</h3>
+          <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.7;">আপনার জাতীয় পরিচয়পত্র, মোবাইল নম্বর বা ঠিকানার কোনো তথ্যই সার্ভারে জমা হয় না। সম্পূর্ণ প্রক্রিয়াটি আপনার ব্রাউজারেই সম্পন্ন হয়।</p>
         </div>
 
-        <div style="text-align: center; padding: 1rem;">
-          <div style="width: 50px; height: 50px; background: #fef3c7; color: #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem;">✍️</div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">স্বয়ংক্রিয় কথায় টাকা ও বাংলা তারিখ</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">হাজার ও লক্ষ টাকার হিসাবগুলো স্বয়ংক্রিয়ভাবে নির্ভুল বাংলা কথায় রূপান্তর হয়, ফলে বানানের কোনো ভুলভ্রান্তির সুযোগ থাকে না।</p>
+        <div style="text-align: center; padding: 1.25rem; background: var(--bg-subtle); border: 1px solid var(--border-hairline); border-radius: var(--radius-md);">
+          <div style="width: 52px; height: 52px; background: #fef3c7; color: #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem;">✍️</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-ink);">স্বয়ংক্রিয় কথায় টাকা ও বাংলা তারিখ</h3>
+          <p style="font-size: 0.925rem; color: var(--text-muted); line-height: 1.7;">হাজার ও লক্ষ টাকার হিসাবগুলো স্বয়ংক্রিয়ভাবে নির্ভুল বাংলা কথায় রূপান্তর হয়, ফলে বানানের কোনো ভুলভ্রান্তির সুযোগ থাকে না।</p>
         </div>
       </div>
     </section>
-
-    <!-- SEO Information Section for Google Authority -->
-    <article class="seo-guide-section">
-      <div class="guide-header">
-        <h2 class="guide-title">বাংলাদেশে প্রশাসনিক ও আইনি দরখাস্ত লেখার সহজ নির্দেশিকা</h2>
-      </div>
-      <div class="guide-content">
-        <p>
-          যেকোনো সাধারণ নাগরিক কিংবা ব্যবসায়ী প্রতিষ্ঠানের জন্য সঠিক নিয়মে দরখাস্ত ও চুক্তিপত্র সম্পাদন করা একটি নিত্যনৈমিত্তিক প্রয়োজন। পূর্বে এসব কাজের জন্য স্থানীয় ইউনিয়ন পরিষদের বা আদালতের পার্শ্ববর্তী কম্পিউটার দোকানে দীর্ঘক্ষণ অপেক্ষা করতে হতো এবং অতিরিক্ত ফি প্রদান করতে হতো।
-        </p>
-        <p>
-          BanglaDoc-এর মূল উদ্দেশ্য হলো সর্বাধুনিক প্রযুক্তির মাধ্যমে প্রতিটি নাগরিকের হাতে বিনামূল্যে একটি স্বয়ংক্রিয় লিগ্যাল ড্রাফটিং টুল পৌঁছে দেওয়া। এখানে সংরক্ষিত সকল টেমপ্লেট বাংলাদেশের আইনগত প্রথা এবং প্রশাসনিক ভাষা অনুসরণ করে তৈরি করা হয়েছে।
-        </p>
-      </div>
-    </article>
 
   </main>
 
@@ -217,5 +218,21 @@
     </div>
   </footer>
 
+  <script src="js/theme.js"></script>
+  <script>
+    function filterCatalog() {
+      const q = document.getElementById('catalogSearchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.catalog-card');
+
+      cards.forEach(card => {
+        const text = (card.getAttribute('data-keywords') + ' ' + card.innerText).toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
