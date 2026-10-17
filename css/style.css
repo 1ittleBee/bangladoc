@@ -153,23 +153,19 @@ body {
   text-decoration: none;
 }
 
-.logo-icon {
+.logo-icon,
+.logo-icon-svg {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, var(--primary-500), #042f2e);
-  color: #ffffff;
+  display: block;
   border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.25rem;
-  box-shadow: 0 2px 8px rgba(13, 110, 99, 0.25);
+  filter: drop-shadow(0 2px 8px rgba(13, 110, 99, 0.22));
   transition: transform var(--duration-fast) var(--ease-spring);
 }
 
-.brand-logo:hover .logo-icon {
-  transform: scale(1.05) rotate(-2deg);
+.brand-logo:hover .logo-icon,
+.brand-logo:hover .logo-icon-svg {
+  transform: scale(1.06) rotate(-2deg);
 }
 
 .logo-text {
