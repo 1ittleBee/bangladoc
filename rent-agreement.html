@@ -227,7 +227,7 @@
                   <span>মাসিক ভাড়া (টাকা) *</span>
                   <span class="field-hint">অংকে</span>
                 </label>
-                <input type="number" id="monthlyRent" class="form-control" value="20000">
+                <input type="number" id="monthlyRent" class="form-control" value="20000" min="0">
                 <div class="words-indicator">
                   <span>✍️</span>
                   <span id="rentWords" style="flex-grow: 1;">বিশ হাজার টাকা মাত্র</span>
@@ -239,7 +239,7 @@
                   <span>অগ্রিম জামানত (টাকা) *</span>
                   <span class="field-hint">সিকিউরিটি</span>
                 </label>
-                <input type="number" id="advanceAmount" class="form-control" value="50000">
+                <input type="number" id="advanceAmount" class="form-control" value="50000" min="0">
                 <div class="words-indicator">
                   <span>✍️</span>
                   <span id="advanceWords" style="flex-grow: 1;">পঞ্চাশ হাজার টাকা মাত্র</span>
@@ -572,7 +572,11 @@
       const viewRentWords = document.getElementById('viewRentWords');
 
       function updateRent() {
-        const val = rentInput.value;
+        let val = rentInput.value;
+        if (parseFloat(val) < 0 || String(val).trim().startsWith('-')) {
+          val = '0';
+          rentInput.value = '0';
+        }
         const words = BanglaConverter.amountToBanglaWords(val);
         const bnDigits = BanglaConverter.toBengaliDigits(val);
         rentWordsSpan.innerText = words || 'শূন্য টাকা';
@@ -588,7 +592,11 @@
       const viewAdvanceWords = document.getElementById('viewAdvanceWords');
 
       function updateAdvance() {
-        const val = advanceInput.value;
+        let val = advanceInput.value;
+        if (parseFloat(val) < 0 || String(val).trim().startsWith('-')) {
+          val = '0';
+          advanceInput.value = '0';
+        }
         const words = BanglaConverter.amountToBanglaWords(val);
         const bnDigits = BanglaConverter.toBengaliDigits(val);
         advanceWordsSpan.innerText = words || 'শূন্য টাকা';

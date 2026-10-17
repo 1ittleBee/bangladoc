@@ -355,6 +355,7 @@
   <div id="toast" class="toast"></div>
 
   <!-- Client-side Logic -->
+  <script src="js/converter.js"></script>
   <script src="js/theme.js"></script>
   <script>
     function showToast(msg) {
@@ -387,8 +388,9 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       const today = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const bengaliDate = today.toLocaleDateString('bn-BD', options) + ' খ্রিষ্টাব্দ';
+      const bengaliDate = typeof BanglaConverter !== 'undefined'
+        ? BanglaConverter.formatBanglaDate(today)
+        : today.toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' }) + ' খ্রিষ্টাব্দ';
       document.getElementById('viewTodayDate').innerText = bengaliDate;
 
       // Default start date = today, end date = 3 days later
@@ -433,11 +435,15 @@
         const s = startInp.value;
         const e = endInp.value;
         if (s && e) {
-          document.getElementById('viewDateRange').innerText = `${s} হতে ${e}`;
+          const sText = typeof BanglaConverter !== 'undefined' ? BanglaConverter.formatBanglaDate(s) : s;
+          const eText = typeof BanglaConverter !== 'undefined' ? BanglaConverter.formatBanglaDate(e) : e;
+          document.getElementById('viewDateRange').innerText = `${sText} হতে ${eText}`;
         }
       }
       startInp.addEventListener('change', updateRange);
+      startInp.addEventListener('input', updateRange);
       endInp.addEventListener('change', updateRange);
+      endInp.addEventListener('input', updateRange);
       updateRange();
     });
 

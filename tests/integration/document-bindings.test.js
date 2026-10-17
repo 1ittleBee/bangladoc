@@ -68,6 +68,13 @@ describe('Document Bindings Integration Test', () => {
 
     assert.equal(viewRent.innerText, '৩৫০০০');
     assert.equal(rentWords.innerText, 'পঁয়ত্রিশ হাজার টাকা মাত্র');
+
+    // Simulate negative rent input: must sanitize and prevent negative value in document
+    rentInput.value = '-5000';
+    rentInput.dispatchEvent(new window.Event('input', { bubbles: true }));
+    assert.equal(rentInput.value, '0');
+    assert.equal(viewRent.innerText, '০');
+    assert.ok(!viewRent.innerText.includes('-'), 'Document must not show negative rent');
   });
 
   it('Commercial Rent (commercial-rent.html) binds shop details & security advance', () => {
@@ -150,6 +157,19 @@ describe('Document Bindings Integration Test', () => {
     desigInput.value = 'সিনিয়র অফিসার';
     desigInput.dispatchEvent(new window.Event('input', { bubbles: true }));
     assert.equal(viewDesig.innerText, 'সিনিয়র অফিসার');
+
+    // Simulate start & end date selection and verify Bengali formatting
+    const startInp = document.getElementById('startDate');
+    const endInp = document.getElementById('endDate');
+    const viewDateRange = document.getElementById('viewDateRange');
+
+    startInp.value = '2026-11-05';
+    startInp.dispatchEvent(new window.Event('input', { bubbles: true }));
+    endInp.value = '2026-11-07';
+    endInp.dispatchEvent(new window.Event('input', { bubbles: true }));
+
+    assert.equal(viewDateRange.innerText, '০৫ নভেম্বর, ২০২৬ খ্রিষ্টাব্দ হতে ০৭ নভেম্বর, ২০২৬ খ্রিষ্টাব্দ');
+    assert.ok(!viewDateRange.innerText.includes('2026-11-05'), 'Date range must not contain English ISO date');
   });
 
   it('Vehicle Sale (vehicle-sale.html) binds vehicle reg and buyer/seller data', () => {
