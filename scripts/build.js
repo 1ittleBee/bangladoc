@@ -29,6 +29,7 @@ const itemsToCopy = [
   'vehicle-sale.html',
   'sitemap.xml',
   'robots.txt',
+  '.assetsignore',
   'css',
   'js',
   'assets'

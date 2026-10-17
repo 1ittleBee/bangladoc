@@ -1,0 +1,17 @@
+node_modules/
+.git/
+.github/
+.husky/
+.agents/
+tests/
+scripts/
+playwright-report/
+test-results/
+.nvmrc
+package.json
+package-lock.json
+playwright.config.js
+TESTING.md
+AGENTS.md
+README.md
+server.js
