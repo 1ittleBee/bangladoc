@@ -9,10 +9,9 @@ module.exports = defineConfig({
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
   workers: isCI ? 1 : undefined,
-  reporter: [
-    ['list'],
-    ['html', { open: 'never' }]
-  ],
+  reporter: isCI
+    ? [['github'], ['list'], ['html', { open: 'never' }]]
+    : [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
@@ -30,6 +29,7 @@ module.exports = defineConfig({
     {
       name: 'Mobile Android (360px)',
       use: {
+        ...devices['Pixel 5'],
         viewport: { width: 360, height: 740 },
         userAgent: 'Mozilla/5.0 (Linux; Android 13; SM-A146P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
         isMobile: true,
@@ -42,6 +42,8 @@ module.exports = defineConfig({
     command: 'node server.js',
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !isCI,
-    timeout: 30000,
+    stdout: 'pipe',
+    stderr: 'pipe',
+    timeout: 60000,
   },
 });

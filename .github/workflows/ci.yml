@@ -71,8 +71,8 @@ jobs:
       - name: Unit & Integration Tests (Coverage)
         run: npm run test:coverage
 
-      - name: Install Playwright Browsers & Headless Shell
-        run: npx playwright install --with-deps chromium chromium-headless-shell
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
 
       - name: Playwright End-to-End Tests
         run: npm run test:e2e
