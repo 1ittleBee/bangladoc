@@ -126,6 +126,25 @@ HTML_FILES.forEach(file => {
   }
 });
 
+// 6. Self-Hosted Fonts & Zero External Font Dependency Validation
+console.log('\n[6] Self-Hosted Fonts & Asset Integrity:');
+const fontsCssPath = path.join(ROOT_DIR, 'css/fonts.css');
+assert(fs.existsSync(fontsCssPath), 'css/fonts.css exists');
+
+const fontsCss = fs.readFileSync(fontsCssPath, 'utf8');
+const fontMatches = fontsCss.match(/url\(([^)]+\.woff2)\)/g) || [];
+assert(fontMatches.length > 0, `css/fonts.css declares at least one font (${fontMatches.length} found)`);
+
+fontMatches.forEach(fm => {
+  const rel = fm.replace(/^url\(|\)$/g, '');
+  const fontFile = path.resolve(ROOT_DIR, 'css', rel);
+  assert(fs.existsSync(fontFile), `Font file "${rel}" exists on disk`);
+});
+
+const styleCss = fs.readFileSync(path.join(ROOT_DIR, 'css/style.css'), 'utf8');
+assert(!styleCss.includes('fonts.googleapis.com'), 'css/style.css has zero external Google Fonts imports');
+assert(styleCss.includes("fonts.css"), 'css/style.css imports local fonts.css');
+
 // Results Summary
 console.log('\n====================================================');
 console.log(`Test Execution Finished: ${passedTests}/${totalTests} Passed`);

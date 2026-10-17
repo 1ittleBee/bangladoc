@@ -9,7 +9,10 @@ const MIME_TYPES = {
   '.js': 'text/javascript; charset=UTF-8',
   '.json': 'application/json; charset=UTF-8',
   '.xml': 'application/xml; charset=UTF-8',
-  '.txt': 'text/plain; charset=UTF-8'
+  '.txt': 'text/plain; charset=UTF-8',
+  '.svg': 'image/svg+xml; charset=UTF-8',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff'
 };
 
 const server = http.createServer((req, res) => {

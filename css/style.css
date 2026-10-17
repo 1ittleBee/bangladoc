@@ -4,8 +4,7 @@
    Optimized for bilingual Bangla/English typography, WCAG AAA accessibility,
    fluid spring physics, and photorealistic A4 drafting canvas.
    ========================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+@import url('fonts.css');
 
 :root {
   /* Color Palette - Forest Teal Authority (Light Mode / Warm Paper) */
