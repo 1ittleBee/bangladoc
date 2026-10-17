@@ -5,7 +5,7 @@
    fluid spring physics, and photorealistic A4 drafting canvas.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
 
 :root {
   /* Color Palette - Forest Teal Authority (Light Mode / Warm Paper) */
@@ -50,8 +50,8 @@
   --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--border-hairline);
   --shadow-dock: 0 12px 32px -6px rgba(0, 0, 0, 0.14), 0 0 0 1px var(--border-hairline);
 
-  /* Typography */
-  --font-bangla: 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Typography - Anek Bangla gives crisp, balanced numerals & modern letterforms */
+  --font-bangla: 'Anek Bangla', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-latin: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   
