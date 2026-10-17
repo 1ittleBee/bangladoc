@@ -5,24 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BanglaDoc - অনলাইন বাংলা চুক্তিপত্র ও দরখাস্ত জেনারেটর</title>
   <meta name="description" content="বাংলাদেশের নাগরিকদের জন্য ফ্রি অনলাইন দরখাস্ত ও চুক্তিপত্র তৈরির আধুনিক প্ল্যাটফর্ম। বাসা ভাড়ার চুক্তি, থানায় জিডি, টাকা ধারের অঙ্গীকারনামা ও ছুটির আবেদন সহজে প্রিন্ট বা PDF ডাউনলোড করুন।">
+  <!-- Search Engine Crawling & Googlebot Indexing Directives -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large">
+  
+  <!-- Google Search Console Verification (Replace with your actual token) -->
+  <meta name="google-site-verification" content="YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE">
+
   <link rel="canonical" href="https://bangladoc.com/">
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/icons/logo-mark.svg">
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Open Graph / Facebook / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="bn_BD">
+  <meta property="og:site_name" content="BanglaDoc">
+  <meta property="og:url" content="https://bangladoc.com/">
+  <meta property="og:title" content="BanglaDoc - অনলাইন বাংলা চুক্তিপত্র ও দরখাস্ত জেনারেটর">
+  <meta property="og:description" content="বাংলাদেশের নাগরিকদের জন্য ফ্রি অনলাইন দরখাস্ত ও চুক্তিপত্র তৈরির আধুনিক প্ল্যাটফর্ম। বাসা ভাড়ার চুক্তি, থানায় জিডি, টাকা ধারের অঙ্গীকারনামা সহজে প্রিন্ট বা PDF ডাউনলোড করুন।">
+  <meta property="og:image" content="https://bangladoc.com/assets/icons/logo-horizontal.svg">
+  <meta property="og:image:alt" content="BanglaDoc Logo">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BanglaDoc - অনলাইন বাংলা চুক্তিপত্র ও দরখাস্ত জেনারেটর">
+  <meta name="twitter:description" content="বাংলাদেশের নাগরিকদের জন্য ফ্রি অনলাইন দরখাস্ত ও চুক্তিপত্র তৈরির আধুনিক প্ল্যাটফর্ম। বাসা ভাড়ার চুক্তি, থানায় জিডি, টাকা ধারের অঙ্গীকারনামা সহজে প্রিন্ট বা PDF ডাউনলোড করুন।">
+  <meta name="twitter:image" content="https://bangladoc.com/assets/icons/logo-horizontal.svg">
+
+  <!-- Structured Data (JSON-LD) for Google Knowledge Graph & Rich Results -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "BanglaDoc",
-    "url": "https://bangladoc.com",
-    "description": "Free online Bangla legal document and official application generator.",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "BDT"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://bangladoc.com/#website",
+        "url": "https://bangladoc.com/",
+        "name": "BanglaDoc",
+        "description": "বিনামূল্যে অনলাইন বাংলা চুক্তিপত্র ও দরখাস্ত তৈরির আধুনিক প্ল্যাটফর্ম।",
+        "inLanguage": "bn",
+        "publisher": {
+          "@id": "https://bangladoc.com/#organization"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://bangladoc.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://bangladoc.com/#organization",
+        "name": "BanglaDoc",
+        "url": "https://bangladoc.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://bangladoc.com/assets/icons/logo-horizontal.svg",
+          "caption": "BanglaDoc Logo"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://bangladoc.com/#webapp",
+        "name": "BanglaDoc",
+        "url": "https://bangladoc.com/",
+        "description": "Free online Bangla legal document and official application generator.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BDT"
+        }
+      }
+    ]
   }
   </script>
 </head>
