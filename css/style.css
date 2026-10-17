@@ -1909,6 +1909,10 @@ body.pdf-studio-mode .footer {
   pointer-events: none;
 }
 
+#interactiveTextLayer.drawing-mode .pdf-text-item {
+  pointer-events: none !important;
+}
+
 .pdf-text-item {
   position: absolute;
   color: transparent;

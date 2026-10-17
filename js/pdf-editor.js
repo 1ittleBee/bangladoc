@@ -1266,10 +1266,10 @@
 
       // Interactive live text layer pointer-events handling
       if (this.interactiveTextLayer) {
-        if (tool === 'select' || tool === 'text') {
-          this.interactiveTextLayer.style.pointerEvents = 'auto';
+        if (tool === 'pen' || tool === 'highlighter') {
+          this.interactiveTextLayer.classList.add('drawing-mode');
         } else {
-          this.interactiveTextLayer.style.pointerEvents = 'none';
+          this.interactiveTextLayer.classList.remove('drawing-mode');
         }
       }
 
