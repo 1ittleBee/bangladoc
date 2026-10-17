@@ -14,6 +14,7 @@ module.exports = defineConfig({
     : [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'http://127.0.0.1:3000',
+    permissions: ['clipboard-read', 'clipboard-write'],
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     ...(isCI ? {} : { channel: 'chrome' })

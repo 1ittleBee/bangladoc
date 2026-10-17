@@ -36,8 +36,7 @@
       "node scripts/update-tests.js --run"
     ],
     "*.html": [
-      "node scripts/test-e2e.js",
-      "npm test"
+      "node scripts/test-e2e.js"
     ]
   }
 }

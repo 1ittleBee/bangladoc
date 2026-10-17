@@ -19,10 +19,15 @@ test.describe('Theme & Accessibility End-to-End Suite', () => {
     expect(persistedTheme).toBe(docTheme);
   });
 
-  test('clicking copy button shows universal toast notification', async ({ page }) => {
+  test('clicking copy button shows universal toast notification', async ({ page, isMobile }) => {
     await page.goto('/rent-agreement.html', { waitUntil: 'domcontentloaded' });
 
-    const copyBtn = page.locator('.btn-secondary', { hasText: 'কপি' });
+    if (isMobile) {
+      await page.locator('#tabPreviewBtn').click();
+    }
+
+    const copyBtn = page.locator('#copyBtn');
+    await expect(copyBtn).toBeVisible();
     await copyBtn.click();
 
     const toast = page.locator('#banglaDocToast');

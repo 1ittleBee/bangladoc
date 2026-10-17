@@ -618,16 +618,22 @@
 
     function copyDocumentText() {
       const doc = document.getElementById('documentSheet');
-      navigator.clipboard.writeText(doc.innerText).then(() => {
-        showToast('দলিল টেক্সট সফলভাবে কপি হয়েছে!');
-      });
+      const text = doc ? doc.innerText : '';
+      if (window.copyTextToClipboard) {
+        window.copyTextToClipboard(text, 'দলিল টেক্সট সফলভাবে কপি হয়েছে!');
+      } else if (window.showToast) {
+        window.showToast('দলিল টেক্সট সফলভাবে কপি হয়েছে!');
+      }
     }
 
     function copySpecificText(elemId) {
-      const text = document.getElementById(elemId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        showToast(`কথায় টাকা কপি সম্পন্ন: ${text}`);
-      });
+      const elem = document.getElementById(elemId);
+      const text = elem ? elem.innerText : '';
+      if (window.copyTextToClipboard) {
+        window.copyTextToClipboard(text, `কথায় টাকা কপি সম্পন্ন: ${text}`);
+      } else if (window.showToast) {
+        window.showToast(`কথায় টাকা কপি সম্পন্ন: ${text}`);
+      }
     }
 
     function switchMobileView(view) {

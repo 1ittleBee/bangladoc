@@ -71,4 +71,11 @@ describe('Theme Engine (js/theme.js)', () => {
     assert.ok(toast.classList.contains('show'), 'Toast should have show class');
     assert.ok(toast.innerHTML.includes('সংরক্ষণ সম্পন্ন'), 'Toast text should match');
   });
+
+  it('copies text using copyTextToClipboard and triggers toast', () => {
+    window.copyTextToClipboard('পরীক্ষামূলক টেক্সট', 'কপি সফল');
+    const toast = document.getElementById('banglaDocToast');
+    assert.ok(toast, 'Toast element must be displayed on copy');
+    assert.ok(toast.innerHTML.includes('কপি সফল'), 'Toast text should include success message');
+  });
 });

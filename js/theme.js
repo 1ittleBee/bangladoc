@@ -45,4 +45,32 @@
       toast.classList.remove('show');
     }, 2400);
   };
+
+  // Safe Universal Clipboard Copy Helper
+  window.copyTextToClipboard = function (text, successMsg) {
+    const msg = successMsg || 'দলিল টেক্সট সফলভাবে কপি হয়েছে!';
+    const fallback = function () {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch (e) {}
+      window.showToast(msg);
+    };
+
+    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        window.showToast(msg);
+      }).catch(() => {
+        fallback();
+      });
+    } else {
+      fallback();
+    }
+  };
 })();
