@@ -3,3 +3,9 @@ Thumbs.db
 node_modules/
 .vscode/
 .idea/
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.env
+npm-debug.log*

@@ -1,0 +1,31 @@
+{
+  "name": "bangladoc",
+  "version": "2.1.0",
+  "description": "অনলাইন বাংলা চুক্তিপত্র ও দরখাস্ত তৈরির আধুনিক প্ল্যাটফর্ম",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/unit/*.test.js tests/integration/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:integration": "node --test tests/integration/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage tests/unit/*.test.js tests/integration/*.test.js",
+    "test:integrity": "node scripts/test-e2e.js",
+    "test:e2e": "playwright test",
+    "test:all": "npm run test:integrity && npm run test"
+  },
+  "keywords": [
+    "bangladoc",
+    "legal",
+    "contract",
+    "agreement",
+    "bangla",
+    "bangladesh",
+    "generator"
+  ],
+  "author": "BanglaDoc Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "jsdom": "^26.0.0"
+  }
+}
