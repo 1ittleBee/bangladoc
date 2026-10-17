@@ -1,18 +1,54 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('Running BanglaDoc production build...');
+const rootDir = path.resolve(__dirname, '..');
+const distDir = path.join(rootDir, 'dist');
 
-// Cloudflare Pages scans the root directory for static assets when build output is '/' or '.'.
-// Packages in node_modules (such as workerd binary at 129MB) exceed Cloudflare Workers' 25 MiB asset limit.
-// We prune node_modules in Cloudflare Pages or when explicitly requested.
-if (process.env.CF_PAGES || process.env.CLOUDFLARE_PAGES || process.argv.includes('--clean-modules')) {
-  console.log('Detected Cloudflare Pages build environment (CF_PAGES). Pruning node_modules...');
-  const nmPath = path.join(__dirname, '..', 'node_modules');
-  if (fs.existsSync(nmPath)) {
-    fs.rmSync(nmPath, { recursive: true, force: true });
-    console.log('Successfully pruned node_modules before asset packaging.');
+console.log('Building BanglaDoc static production distribution in dist/...');
+
+// 1. Clean and prepare dist directory
+if (fs.existsSync(distDir)) {
+  fs.rmSync(distDir, { recursive: true, force: true });
+}
+fs.mkdirSync(distDir, { recursive: true });
+
+// 2. Production items to bundle
+const itemsToCopy = [
+  'about.html',
+  'bayna-agreement.html',
+  'commercial-rent.html',
+  'disclaimer.html',
+  'index.html',
+  'leave-application.html',
+  'money-loan.html',
+  'pdf-editor.html',
+  'police-gd.html',
+  'privacy-policy.html',
+  'rent-agreement.html',
+  'terms.html',
+  'vehicle-sale.html',
+  'sitemap.xml',
+  'robots.txt',
+  'css',
+  'js',
+  'assets'
+];
+
+for (const item of itemsToCopy) {
+  const src = path.join(rootDir, item);
+  const dest = path.join(distDir, item);
+  if (fs.existsSync(src)) {
+    fs.cpSync(src, dest, { recursive: true });
   }
 }
 
-console.log('BanglaDoc static site build complete.');
+// 3. Also prune root node_modules if in Cloudflare Pages/Workers environment
+if (process.env.CF_PAGES || process.env.CLOUDFLARE_PAGES || process.argv.includes('--clean-modules')) {
+  const nmPath = path.join(rootDir, 'node_modules');
+  if (fs.existsSync(nmPath)) {
+    console.log('Pruning root node_modules for Cloudflare build container...');
+    fs.rmSync(nmPath, { recursive: true, force: true });
+  }
+}
+
+console.log('✅ BanglaDoc dist/ built successfully.');

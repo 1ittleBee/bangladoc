@@ -9,3 +9,4 @@ playwright-report/
 blob-report/
 .env
 npm-debug.log*
+dist/
