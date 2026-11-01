@@ -49,7 +49,7 @@ HTML_FILES.forEach(file => {
   assert(fs.existsSync(filePath), `HTML file exists: ${file}`);
 });
 
-['robots.txt', 'sitemap.xml', 'css/style.css', 'js/theme.js', 'js/converter.js', 'js/autodraft.js', 'assets/icons/favicon.svg', 'assets/icons/logo-mark.svg', 'assets/icons/logo-horizontal.svg'].forEach(file => {
+['robots.txt', 'sitemap.xml', 'css/style.css', 'js/theme.js', 'js/converter.js', 'js/autodraft.js', 'js/analytics.js', 'assets/icons/favicon.svg', 'assets/icons/logo-mark.svg', 'assets/icons/logo-horizontal.svg'].forEach(file => {
   const filePath = path.join(ROOT_DIR, file);
   assert(fs.existsSync(filePath), `Asset file exists: ${file}`);
 });

@@ -66,6 +66,9 @@
       obj[key] = value;
     });
     localStorage.setItem(storageKey, JSON.stringify(obj));
+    if (window.BanglaDoc && window.BanglaDoc.Analytics) {
+      window.BanglaDoc.Analytics.trackDraftSave(storageKey, Object.keys(obj).length);
+    }
   }
 
   function showDraftBanner(storageKey, formId) {
@@ -117,6 +120,9 @@
   window.BanglaDoc.shareViaWhatsApp = function (docTitle) {
     const url = window.location.href;
     const text = `আমি BanglaDoc (${url}) দিয়ে "${docTitle}"-এর খসড়া তৈরি করেছি। আপনিও সহজে বাংলায় চুক্তিপত্র ও দরখাস্ত তৈরি করতে পারেন।`;
+    if (window.BanglaDoc && window.BanglaDoc.Analytics) {
+      window.BanglaDoc.Analytics.trackWhatsAppShare(docTitle);
+    }
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     window.open(shareUrl, '_blank');
   };

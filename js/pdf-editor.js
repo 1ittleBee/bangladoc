@@ -1149,6 +1149,9 @@
       });
 
       this.renderCurrentPage();
+      if (window.BanglaDoc && window.BanglaDoc.Analytics) {
+        window.BanglaDoc.Analytics.trackSignature(this.currentSigTab || 'draw');
+      }
       if (window.showToast) window.showToast('ডিজিটাল স্বাক্ষর সংযুক্ত হয়েছে');
     }
 
@@ -1159,6 +1162,9 @@
       }
 
       this.showLoading('PDF লোড ও প্রক্রিয়াকরণ হচ্ছে...');
+      if (window.BanglaDoc && window.BanglaDoc.Analytics) {
+        window.BanglaDoc.Analytics.trackPdfUpload(file.size, file.name);
+      }
       const reader = new FileReader();
       reader.onload = async (e) => {
         try {
@@ -1959,6 +1965,9 @@
         URL.revokeObjectURL(url);
 
         this.hideLoading();
+        if (window.BanglaDoc && window.BanglaDoc.Analytics) {
+          window.BanglaDoc.Analytics.trackPdfDownload('pdf-editor', this.core.pages ? this.core.pages.length : 1, 'pdf');
+        }
         if (window.showToast) {
           window.showToast('এডিটেড PDF সফলভাবে ডাউনলোড হয়েছে!');
         }
@@ -1992,6 +2001,9 @@
           setTimeout(() => {
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
+            if (window.BanglaDoc && window.BanglaDoc.Analytics) {
+              window.BanglaDoc.Analytics.trackPrint('pdf-editor', 'studio_print_dialog');
+            }
             this.hideLoading();
           }, 300);
         };

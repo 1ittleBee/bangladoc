@@ -15,6 +15,7 @@ const htmlContent = fs.readFileSync(path.join(ROOT_DIR, 'pdf-editor.html'), 'utf
 const pdfEditorJs = fs.readFileSync(path.join(ROOT_DIR, 'js/pdf-editor.js'), 'utf-8');
 const themeJs = fs.readFileSync(path.join(ROOT_DIR, 'js/theme.js'), 'utf-8');
 const converterJs = fs.readFileSync(path.join(ROOT_DIR, 'js/converter.js'), 'utf-8');
+const analyticsJs = fs.readFileSync(path.join(ROOT_DIR, 'js/analytics.js'), 'utf-8');
 
 function setupPdfEditorDOM() {
   // Strip external script tags for controlled JSDOM injection
@@ -34,6 +35,9 @@ function setupPdfEditorDOM() {
     beginPath: () => {},
     moveTo: () => {},
     lineTo: () => {},
+    bezierCurveTo: () => {},
+    quadraticCurveTo: () => {},
+    arc: () => {},
     stroke: () => {},
     fillText: () => {},
     strokeRect: () => {},
@@ -49,6 +53,7 @@ function setupPdfEditorDOM() {
   };
 
   // Evaluate scripts in order
+  window.eval(analyticsJs);
   window.eval(converterJs);
   window.eval(themeJs);
   window.eval(pdfEditorJs);
@@ -136,5 +141,34 @@ describe('PDF Editor Integration Test - Structure & Tooling', () => {
     assert.equal(welcome.style.display, 'none');
     assert.equal(workspace.style.display, 'flex');
     assert.equal(document.getElementById('docTitleLabel').innerText, 'নমুনা_চুক্তিপত্র_BanglaDoc.pdf');
+  });
+
+  it('tracks digital_signature_added conversion event when signature is applied', async () => {
+    const { document, window } = setupPdfEditorDOM();
+
+    // Transition to workspace first
+    document.getElementById('btnTryDemo').click();
+    await new Promise(r => setTimeout(r, 20));
+
+    // Clear event history
+    window.BanglaDoc.Analytics.clearEventLog();
+
+    // Open signature tool and apply signature
+    const sigToolBtn = document.querySelector('[data-tool="signature"]');
+    sigToolBtn.click();
+
+    // Fill in typed signature and click apply
+    const typeTab = document.querySelector('[data-sig-tab="paneType"]');
+    typeTab.click();
+    const sigInput = document.getElementById('sigTypedInput');
+    sigInput.value = 'রহিম উদ্দিন';
+    sigInput.dispatchEvent(new window.Event('input'));
+
+    const applyBtn = document.getElementById('btnApplySignature');
+    applyBtn.click();
+
+    const history = window.BanglaDoc.Analytics.getEventHistory();
+    const sigEvent = history.find(e => e.event_name === 'digital_signature_added');
+    assert.ok(sigEvent, 'digital_signature_added conversion event was tracked');
   });
 });
